@@ -38,6 +38,9 @@ public class Building {
     
     @Column(name = "name")
     private String name;
+
+    @Column(name = "description")
+    private String description;
     
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "building")
     @Cascade(CascadeType.ALL)
