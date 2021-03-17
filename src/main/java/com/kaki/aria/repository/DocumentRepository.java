@@ -7,8 +7,10 @@
 package com.kaki.aria.repository;
 
 import com.kaki.aria.model.Document;
+import java.util.List;
+import java.util.Set;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository
+import org.springframework.stereotype.Repository;
 
 /**
  *
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Repository
 @Repository("documentRepository")
 public interface DocumentRepository extends JpaRepository<Document, Long>{
     
+    List<Document> findAllByDocumentId(long documentId);
     Document findById(long id);
     
 }
