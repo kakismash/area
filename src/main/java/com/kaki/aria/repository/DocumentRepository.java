@@ -19,7 +19,12 @@ import org.springframework.stereotype.Repository;
 @Repository("documentRepository")
 public interface DocumentRepository extends JpaRepository<Document, Long>{
     
-    List<Document> findAllByDocumentId(long documentId);
-    Document findById(long id);
+    Document findById(long documentId);
+    
+    List<Document> findAll();
+    
+    void deleteById(long documentId);
+    
+    Document saveDocument(Document document);
     
 }
