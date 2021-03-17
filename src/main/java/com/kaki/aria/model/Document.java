@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package com.kaki.aria.model;
 
 import javax.persistence.Column;
@@ -16,32 +17,43 @@ import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+import java.time.LocalDate; //---Import the LocalDate class
 /**
  *
- * @author alfia
+ * @author Jose
  */
 
 @Entity
-@Table(name = "apartment")
+@Table(name = "document")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Apartment {
-    
+public class Document {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "apartment_id")
+    @Column(name = "document_id")
     private long id;
     
-    @Column(name = "display")
-    private String display;
+    @Column(name = "path")
+    private String path;
+
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "fileType")
+    private String fileType;
+
+    @Column(name = "size")
+    private long size;
 
     @Column(name = "description")
     private String description;
-    
-    @ManyToOne
-    @JoinColumn( name = "building_id")
-    private Building building;
-    
+
+    @Column(name = "created")
+    private LocalDate created;
+
+    @Column(name = "updated")
+    private LocalDate updated;
+
 }
