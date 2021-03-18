@@ -28,7 +28,7 @@ public class DocumentService {
         return documentRepo.findAll();
     }
     
-    public void deleteById(long documentId) {
+    public void deleteDocument(long documentId) {
         documentRepo.deleteById(documentId);
     }
     
