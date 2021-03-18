@@ -21,7 +21,7 @@ public class DocumentService {
     DocumentRepository documentRepo;
     
     public Document findById(long documentId) {
-        return documentRepo.findById(documentId);
+        return documentRepo.findById(documentId).orElseGet(null);
     }
     
     public List<Document> findAll() {
@@ -33,7 +33,7 @@ public class DocumentService {
     }
     
     public Document saveDocument(Document document) {
-        return documentRepo.saveDocument(document);
+        return documentRepo.save(document);
     }
     
 }
