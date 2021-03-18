@@ -3,11 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.kaki.aria.controller;
 
-import com.kaki.aria.model.Document;
-import com.kaki.aria.service.DocumentService;
+import com.kaki.aria.model.Building;
+import com.kaki.aria.service.BuildingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -28,26 +27,26 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Jose
  */
 @RestController
-@RequestMapping("/document")
-public class DocumentController {
+@RequestMapping("/building")
+public class BuildingController {
     
     @Autowired
-    private DocumentService documentService;
+    private BuildingService buildingService;
     
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
                  produces = MediaType.APPLICATION_JSON_VALUE)
-    public Document save(@RequestBody Document document){
-        return documentService.saveDocument(document);
+    public Building save(@RequestBody Building building){
+        return buildingService.saveBuilding(building);
     }
     
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<Document> list(){
-        return documentService.findAll();
+    public Iterable<Building> list(){
+        return buildingService.findAll();
     }
     
     @DeleteMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public void deleteById(@PathVariable Long id){
-        documentService.deleteDocument(id);
+        buildingService.deleteBuilding(id);
     }
     
 }
