@@ -20,20 +20,20 @@ public class DocumentService {
     
     DocumentRepository documentRepo;
     
-    public List<Document> findByDocument(long documentId) {
-        return documentRepo.findAllByDocumentId(documentId);
+    public Document findById(long documentId) {
+        return documentRepo.findById(documentId);
     }
     
     public List<Document> findAll() {
         return documentRepo.findAll();
     }
     
-    public void deleteById(long id) {
-        documentRepo.deleteById(id);
+    public void deleteById(long documentId) {
+        documentRepo.deleteById(documentId);
     }
     
     public Document saveDocument(Document document) {
-        return documentRepo.save(document);
+        return documentRepo.saveDocument(document);
     }
     
 }

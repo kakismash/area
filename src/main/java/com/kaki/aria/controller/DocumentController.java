@@ -50,7 +50,7 @@ public class DocumentController {
     @DeleteMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 
     public void deleteById(@PathVariable Long id){
-        documentService.delete(id);
+        documentService.deleteById(id);
     }
     
 }
