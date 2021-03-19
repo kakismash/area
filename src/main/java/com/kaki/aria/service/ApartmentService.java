@@ -27,7 +27,7 @@ public class ApartmentService {
         return apartmentRepo.findAll();
     }
     
-    public void deleteById(long id) {
+    public void deleteApartment(long id) {
         apartmentRepo.deleteById(id);
     }
     

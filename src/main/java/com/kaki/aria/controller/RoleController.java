@@ -5,12 +5,10 @@
  */
 package com.kaki.aria.controller;
 
-import com.kaki.aria.model.User;
-import com.kaki.aria.service.UserService;
+import com.kaki.aria.model.Role;
+import com.kaki.aria.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -26,38 +24,30 @@ import org.springframework.web.servlet.ModelAndView;
 
 /**
  *
- * @author alfia
+ * @author Jose
  */
 @RestController
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/role")
+public class RoleController {
     
     @Autowired
-    private UserService userService;
+    private RoleService roleService;
     
-    @GetMapping(path = "/{email}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public User user(@PathVariable String email) {
-        return userService.findUserByEmail(email);
-    }
-    
-    @PostMapping(   consumes = MediaType.APPLICATION_JSON_VALUE,
-                    produces = MediaType.APPLICATION_JSON_VALUE)
-    public User save(@RequestBody User user) {
-        
-        return userService.saveUser(user);
-        
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
+                 produces = MediaType.APPLICATION_JSON_VALUE)
+    public Role save(@RequestBody Role role){
+        return roleService.saveRole(role);
     }
     
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<User> list() {
-        return userService.findAll();
+    public Iterable<Role> list(){
+        return roleService.findAll();
     }
     
     @DeleteMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public void deleteByEmail(@PathVariable Long id) {
-        userService.deleteUser(id);
+    public void deleteById(@PathVariable Long id){
+        roleService.deleteRole(id);
     }
     
-    
-    
 }
+
