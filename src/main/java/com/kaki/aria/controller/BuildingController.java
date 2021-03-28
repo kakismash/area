@@ -49,4 +49,9 @@ public class BuildingController {
         buildingService.deleteBuilding(id);
     }
     
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public Building findById(Long id){
+        return buildingService.findByBuildingId(id);
+    }
+    
 }

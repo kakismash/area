@@ -40,12 +40,10 @@ public class UserController {
         return userService.findUserByEmail(email);
     }
     
-    @PostMapping(   consumes = MediaType.APPLICATION_JSON_VALUE,
-                    produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
+                 produces = MediaType.APPLICATION_JSON_VALUE)
     public User save(@RequestBody User user) {
-        
         return userService.saveUser(user);
-        
     }
     
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)

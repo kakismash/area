@@ -44,9 +44,19 @@ public class ApartmentController {
         return apartmentService.findAll();
     }
     
-    @DeleteMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public void deleteById(@PathVariable Long id){
+    @GetMapping(path="/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<Apartment> listByBuildingId(@PathVariable long buildingId){
+        return apartmentService.findByBuilding(buildingId);
+    }
+    
+    @DeleteMapping(path = "/{id}")
+    public void deleteById(@PathVariable long id){
         apartmentService.deleteApartment(id);
+    }
+    
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public Apartment findById(Long id){
+        return apartmentService.findByApartmentId(id);
     }
     
 }
