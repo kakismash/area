@@ -45,8 +45,8 @@ public class ApartmentController {
         return apartmentService.findAll();
     }
     
-    @GetMapping(path="/store/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Apartment> apartmetnsByBuildingId(@PathVariable long buildingId){
+    @GetMapping(path="/building/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Apartment> apartmentsByBuildingId(@PathVariable long buildingId){
         return apartmentService.findByBuilding(buildingId);
     }
     
