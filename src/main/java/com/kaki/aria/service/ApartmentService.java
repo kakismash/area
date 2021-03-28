@@ -35,4 +35,8 @@ public class ApartmentService {
         return apartmentRepo.save(apartment);
     }
     
+    public Apartment findByApartmentId(long apartmentId) {
+        return apartmentRepo.findById(apartmentId);
+    }
+    
 }
