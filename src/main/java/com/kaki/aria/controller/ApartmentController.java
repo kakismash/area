@@ -7,6 +7,7 @@ package com.kaki.aria.controller;
 
 import com.kaki.aria.model.Apartment;
 import com.kaki.aria.service.ApartmentService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -40,12 +41,12 @@ public class ApartmentController {
     }
     
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<Apartment> list(){
+    public List<Apartment> list(){
         return apartmentService.findAll();
     }
     
-    @GetMapping(path="/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<Apartment> listByBuildingId(@PathVariable long buildingId){
+    @GetMapping(path="/store/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Apartment> apartmetnsByBuildingId(@PathVariable long buildingId){
         return apartmentService.findByBuilding(buildingId);
     }
     
@@ -54,8 +55,8 @@ public class ApartmentController {
         apartmentService.deleteApartment(id);
     }
     
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public Apartment findById(Long id){
+    @GetMapping(path="/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Apartment findById(@PathVariable long id){
         return apartmentService.findByApartmentId(id);
     }
     
