@@ -49,5 +49,10 @@ public class RoleController {
         roleService.deleteRole(id);
     }
     
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public Role findById(Long id){
+        return roleService.findById(id);
+    }
+    
 }
 

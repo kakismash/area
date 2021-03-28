@@ -51,6 +51,9 @@ public class DocumentController {
         documentService.deleteDocument(id);
     }
     
-     
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public Document findById(Long id){
+        return documentService.findById(id);
+    } 
     
 }
