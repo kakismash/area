@@ -8,7 +8,8 @@ package com.kaki.aria.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-import org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
@@ -21,11 +22,21 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
     securedEnabled = true,
     jsr250Enabled = true
 )
-public class MethodSecurityConfig extends GlobalMethodSecurityConfiguration{
+public class MethodSecurityConfig extends WebSecurityConfigurerAdapter{
 
     
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
-    return new BCryptPasswordEncoder();
+        
+        return new BCryptPasswordEncoder();
+    
+    }
+    
+    @Override
+    protected void configure( HttpSecurity httpSecurity) throws Exception {
+        httpSecurity.cors().and()
+                    .csrf().disable();
+                    
+    }
 }
-}
+
