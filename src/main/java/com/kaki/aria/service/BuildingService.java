@@ -21,7 +21,7 @@ public class BuildingService {
     @Autowired
     BuildingRepository buildingRepo;
     
-    public Building findByBuildingId(long buildingId) {
+    public Building findById(long buildingId) {
         return buildingRepo.findById(buildingId);
     }
     
