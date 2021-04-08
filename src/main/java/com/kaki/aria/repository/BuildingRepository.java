@@ -5,7 +5,6 @@
  */
 package com.kaki.aria.repository;
 
-import com.kaki.aria.model.Apartment;
 import com.kaki.aria.model.Building;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

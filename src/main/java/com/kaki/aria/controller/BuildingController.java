@@ -48,7 +48,7 @@ public class BuildingController {
     
     @GetMapping(path="/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Building findById(@PathVariable Long id){
-        return buildingService.findByBuildingId(id);
+        return buildingService.findById(id);
     }
     
 }
