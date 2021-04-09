@@ -7,8 +7,10 @@ package com.kaki.aria.service;
 
 import com.kaki.aria.model.Role;
 import com.kaki.aria.repository.RoleRepository;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -24,8 +26,23 @@ public class RoleService {
         return roleRepo.findById(roleId).orElseGet(null);
     }
     
+    
+    @Transactional
     public List<Role> findAll() {
-        return roleRepo.findAll();
+        
+        List<Role> roles = new ArrayList<Role>();
+        
+        try {
+        
+            roles.addAll(roleRepo.findAll());
+            
+        } catch (NullPointerException e) {
+            
+            System.out.println("This table is empty");
+            
+        }
+        
+        return roles;
     }
     
     public void deleteRole(long roleId) {

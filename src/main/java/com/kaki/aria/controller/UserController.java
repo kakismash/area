@@ -28,7 +28,6 @@ public class UserController {
     @Autowired
     private UserService userService;
     
-    @PreAuthorize("permitAll()")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
                  produces = MediaType.APPLICATION_JSON_VALUE)
     public User save(@RequestBody User user) {
