@@ -7,8 +7,8 @@ package com.kaki.aria.service;
 
 import com.kaki.aria.model.Apartment;
 import com.kaki.aria.repository.ApartmentRepository;
-import java.util.ArrayList;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -18,28 +18,15 @@ import org.springframework.stereotype.Service;
 @Service("apartmentService")
 public class ApartmentService {
     
+    @Autowired
     ApartmentRepository apartmentRepo;
     
     public List<Apartment> findByBuilding(long buildingId) {
         return apartmentRepo.findAllByBuildingId(buildingId);
     }
-    
    
     public List<Apartment> findAll() {
-        
-        List<Apartment> apartments = new ArrayList<Apartment>();
-        
-        try {
-        
-            apartments.addAll(apartmentRepo.findAll());
-            
-        } catch (NullPointerException e) {
-            
-            System.out.println("This table is empty");
-            
-        }
-        
-        return apartments;
+        return apartmentRepo.findAll();
     }
     
     public void deleteApartment(long id) {
@@ -50,7 +37,7 @@ public class ApartmentService {
         return apartmentRepo.save(apartment);
     }
     
-    public Apartment findByApartmentId(long apartmentId) {
+    public Apartment findById(long apartmentId) {
         return apartmentRepo.findById(apartmentId);
     }
     
