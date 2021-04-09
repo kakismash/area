@@ -29,7 +29,6 @@ public class RoleController {
     @Autowired
     private RoleService roleService;
     
-    @PreAuthorize("permitAll()")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
                  produces = MediaType.APPLICATION_JSON_VALUE)
     public Role save(@RequestBody Role role){

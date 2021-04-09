@@ -30,7 +30,6 @@ public class ApartmentController {
     @Autowired
     private ApartmentService apartmentService;
     
-    @PreAuthorize("permitAll()")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
                  produces = MediaType.APPLICATION_JSON_VALUE)
     public Apartment save(@RequestBody Apartment apartment){

@@ -29,7 +29,6 @@ public class BuildingController {
     @Autowired
     private BuildingService buildingService;
     
-    @PreAuthorize("permitAll()")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
                  produces = MediaType.APPLICATION_JSON_VALUE)
     public Building save(@RequestBody Building building){
