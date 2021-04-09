@@ -7,6 +7,7 @@ package com.kaki.aria.service;
 
 import com.kaki.aria.model.Apartment;
 import com.kaki.aria.repository.ApartmentRepository;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
@@ -23,8 +24,22 @@ public class ApartmentService {
         return apartmentRepo.findAllByBuildingId(buildingId);
     }
     
+   
     public List<Apartment> findAll() {
-        return apartmentRepo.findAll();
+        
+        List<Apartment> apartments = new ArrayList<Apartment>();
+        
+        try {
+        
+            apartments.addAll(apartmentRepo.findAll());
+            
+        } catch (NullPointerException e) {
+            
+            System.out.println("This table is empty");
+            
+        }
+        
+        return apartments;
     }
     
     public void deleteApartment(long id) {
