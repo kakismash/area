@@ -40,7 +40,7 @@ public class ApartmentController {
         return apartmentService.findAll();
     }
     
-    @GetMapping(path="/building/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/building/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Apartment> apartmentsByBuildingId(@PathVariable long buildingId){
         return apartmentService.findByBuilding(buildingId);
     }
@@ -50,7 +50,7 @@ public class ApartmentController {
         apartmentService.deleteApartment(id);
     }
     
-    @GetMapping(path="/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Apartment findById(@PathVariable long id){
         return apartmentService.findById(id);
     }

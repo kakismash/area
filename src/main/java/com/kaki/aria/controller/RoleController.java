@@ -44,7 +44,7 @@ public class RoleController {
         roleService.deleteRole(id);
     }
     
-    @GetMapping(path="/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Role findById(@PathVariable Long id){
         return roleService.findById(id);
     }
