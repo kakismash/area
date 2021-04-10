@@ -61,16 +61,16 @@ public class User {
  
  @ManyToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
  @JoinTable(name="users_roles", 
-            joinColumns=@JoinColumn(name="user_id", 
+            joinColumns=@JoinColumn(name = "user_id", 
                                     referencedColumnName = "user_id"), 
-            inverseJoinColumns=@JoinColumn(name="role_id", 
+            inverseJoinColumns=@JoinColumn(name = "role_id", 
                                            referencedColumnName = "role_id"))
  private Set<Role> roles = new HashSet<Role>();
  
  public User(String email, String firstName, String lastname) {
-     this.email = email;
-     this.firstname = firstName;
-     this.lastname = lastname;
+     this.email         = email;
+     this.firstname     = firstName;
+     this.lastname      = lastname;
  }
     
 }

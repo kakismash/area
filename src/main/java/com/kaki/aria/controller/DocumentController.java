@@ -45,7 +45,7 @@ public class DocumentController {
         documentService.deleteDocument(id);
     }
     
-    @GetMapping(path="/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Document findById(@PathVariable Long id){
         return documentService.findById(id);
     } 
