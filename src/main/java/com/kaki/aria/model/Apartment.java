@@ -34,7 +34,7 @@ public class Apartment {
     @Column(name = "apartment_id")
     private long id;
     
-    @Column(name = "display")
+    @Column(name = "display", nullable = false)
     private String display;
 
     @Column(name = "description")
