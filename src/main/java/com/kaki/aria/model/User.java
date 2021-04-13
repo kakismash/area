@@ -38,28 +38,28 @@ public class User {
  @Column(name = "user_id")
  private long id;
  
- @Column(name = "email")
- private String email;
+ @Column(name = "username", nullable = false, unique = true)
+ private String username;
  
- @Column(name = "firstname")
+ @Column(name = "firstname", nullable = false)
  private String firstname; 
  
- @Column(name = "lastname")
+ @Column(name = "lastname", nullable = false)
  private String lastname;
  
- @Column(name = "password")
+ @Column(name = "password", nullable = false)
  private String password;
  
  @Column(name = "active")
  private int active;
  
- @Column(name = "phone_number")
+ @Column(name = "phone_number", nullable = false, unique = true)
  private String phoneNumber;
  
- @Column(name = "social_security")
+ @Column(name = "social_security", nullable = false, unique = true)
  private int socialSecurity;
  
- @ManyToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+ @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
  @JoinTable(name="users_roles", 
             joinColumns=@JoinColumn(name = "user_id", 
                                     referencedColumnName = "user_id"), 
@@ -67,10 +67,10 @@ public class User {
                                            referencedColumnName = "role_id"))
  private Set<Role> roles = new HashSet<Role>();
  
- public User(String email, String firstName, String lastname) {
-     this.email         = email;
-     this.firstname     = firstName;
-     this.lastname      = lastname;
+ public User(String username, String firstName, String lastname) {
+     this.username     = username;
+     this.firstname    = firstName;
+     this.lastname     = lastname;
  }
     
 }

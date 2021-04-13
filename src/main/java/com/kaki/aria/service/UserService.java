@@ -5,12 +5,8 @@
  */
 package com.kaki.aria.service;
 
-import com.kaki.aria.model.Role;
 import com.kaki.aria.model.User;
-import com.kaki.aria.repository.RoleRepository;
 import com.kaki.aria.repository.UserRepository;
-import java.util.Arrays;
-import java.util.HashSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -26,20 +22,13 @@ public class UserService {
     private UserRepository userRepository;
     
     @Autowired
-    private RoleRepository roleRepository;
-    
-    @Autowired
     private BCryptPasswordEncoder bcCryptPasswordEncoder;
     
-    public User findUserByEmail(String email) {
-        return userRepository.findByEmail(email);
+    public User findUserByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
     
     public User saveUser(User user) {
-        user.setPassword(bcCryptPasswordEncoder.encode(user.getPassword()));
-        user.setActive(1);
-        Role userRole = roleRepository.findRoleByName("ADMIN");
-        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
         return userRepository.save(user);      
     }
     
@@ -51,4 +40,9 @@ public class UserService {
         userRepository.deleteById(id);
     }
     
+    public User savePassword(User user) {
+        user.setPassword(bcCryptPasswordEncoder.encode(user.getPassword()));
+        user.setActive(1);
+        return userRepository.save(user); 
+    }
 }

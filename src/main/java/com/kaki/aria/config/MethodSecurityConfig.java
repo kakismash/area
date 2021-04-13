@@ -33,7 +33,7 @@ public class MethodSecurityConfig extends WebSecurityConfigurerAdapter{
     }
     
     @Override
-    protected void configure( HttpSecurity httpSecurity) throws Exception {
+    protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.cors().and()
                     .csrf().disable();
                     
