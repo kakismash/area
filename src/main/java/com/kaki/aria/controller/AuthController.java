@@ -5,16 +5,21 @@
  */
 package com.kaki.aria.controller;
 
+import com.kaki.aria.config.JwtUtil;
 import com.kaki.aria.config.LoginRequest;
 import com.kaki.aria.config.LoginResponse;
 import com.kaki.aria.service.UserService;
 import com.kaki.aria.model.User;
+import com.kaki.aria.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  *
@@ -26,10 +31,22 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
     
     @Autowired
-    private UserService userService;
+    PasswordEncoder passwordEncoder;
     
     @Autowired
-    private User user;
+    AuthenticationManager authenticationManager;
+    
+    @Autowired
+    UserService userService;
+    
+    @Autowired
+    RoleService rolService;
+    
+    @Autowired
+    User user;
+    
+    @Autowired
+    JwtUtil jwtUtil;
     
     @PostMapping("/login")
     public LoginResponse login(@RequestBody LoginRequest request) {
