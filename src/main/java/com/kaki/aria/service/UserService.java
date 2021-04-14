@@ -42,7 +42,7 @@ public class UserService {
     
     public User savePassword(User user) {
         user.setPassword(bcCryptPasswordEncoder.encode(user.getPassword()));
-        user.setActive(1);
+        user.setEnabled(true);
         return userRepository.save(user); 
     }
 }

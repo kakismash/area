@@ -5,9 +5,12 @@
  */
 package com.kaki.aria.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -38,71 +41,84 @@ import org.springframework.security.core.userdetails.UserDetails;
 @NoArgsConstructor
 public class User implements UserDetails {
  
- @Id
- @GeneratedValue(strategy = GenerationType.AUTO)
- @Column(name = "user_id")
- private long id;
- 
- @Column(name = "username", nullable = false, unique = true)
- private String username;
- 
- @Column(name = "firstname", nullable = false)
- private String firstname; 
- 
- @Column(name = "lastname", nullable = false)
- private String lastname;
- 
- @Column(name = "password", nullable = false)
- private String password;
- 
- @Column(name = "enabled")
- private int enabled;
- 
- @Column(name = "phone_number", nullable = false, unique = true)
- private String phoneNumber;
- 
- @Column(name = "social_security", nullable = false, unique = true)
- private int socialSecurity;
- 
- @
- 
- @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
- @JoinTable(name="users_roles", 
-            joinColumns=@JoinColumn(name = "user_id", 
-                                    referencedColumnName = "user_id"), 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "user_id")
+    private long id;
+
+    @Column(name = "username", nullable = false, unique = true)
+    private String username;
+
+    @Column(name = "firstname", nullable = false)
+    private String firstname; 
+
+    @Column(name = "lastname", nullable = false)
+    private String lastname;
+
+    @Column(name = "password", nullable = false)
+    private String password;
+
+    @Column(name = "enabled")
+    private boolean enabled;
+    
+    @Column(name = "phone_number", nullable = false, unique = true)
+    private String phoneNumber;
+
+    @Column(name = "social_security", nullable = false, unique = true)
+    private int socialSecurity;
+
+    @Column(name = "account_expired")
+    private Date accountExpired;
+
+    @Column(name = "account_blocked")
+    private Date accountBlocked;
+
+    @Column(name = "password_expired")
+    private Date passwordExpired;
+
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable( name="users_roles", 
+                joinColumns=@JoinColumn(name = "user_id", 
+                                        referencedColumnName = "user_id"), 
             inverseJoinColumns=@JoinColumn(name = "role_id", 
                                            referencedColumnName = "role_id"))
- private Set<Role> roles = new HashSet<Role>();
+    private Set<Role> roles = new HashSet<Role>();
  
- public User(String username, String firstName, String lastname) {
-     this.username     = username;
-     this.firstname    = firstName;
-     this.lastname     = lastname;
- }
+    public User(String username, String firstName, String lastname) {
+        this.username     = username;
+        this.firstname    = firstName;
+        this.lastname     = lastname;
+    }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority("USER"));
+    public Collection<? extends GrantedAuthority> getAuthorities(){
+        
+        List<GrantedAuthority> authorities = new ArrayList<>();
+
+        roles.forEach(r -> authorities.add(new SimpleGrantedAuthority(r.getName())));
+
+        return authorities;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return accountExpired.after(new Date());
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return accountBlocked.after(new Date());
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return passwordExpired.after(new Date());
     }
 
     @Override
     public boolean isEnabled() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return enabled;
     }
     
 }
