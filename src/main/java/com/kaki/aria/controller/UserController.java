@@ -5,11 +5,12 @@
  */
 package com.kaki.aria.controller;
 
+import com.kaki.aria.config.JWTUtil;
 import com.kaki.aria.model.User;
 import com.kaki.aria.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,10 +30,18 @@ public class UserController {
     @Autowired
     private UserService userService;
     
+    @Autowired
+    private BCryptPasswordEncoder bcCryptPasswordEncoder;
+    
+    @Autowired
+    private JWTUtil jwtUtil;
+    
     
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
                  produces = MediaType.APPLICATION_JSON_VALUE)
     public User save(@RequestBody User user) {
+        user.setPassword(bcCryptPasswordEncoder.encode(user.getPassword()));
+        user.setToken(jwtUtil.generateToken(user));
         return userService.saveUser(user);
     }
     

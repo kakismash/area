@@ -75,6 +75,9 @@ public class User implements UserDetails {
 
     @Column(name = "password_expired", nullable = true)
     private Date passwordExpired;
+    
+    @Column(name = "token", nullable = true)
+    private String token;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable( name="users_roles", 
