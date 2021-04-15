@@ -33,6 +33,12 @@ public class UserController {
         return userService.saveUser(user);
     }
     
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
+                produces = MediaType.APPLICATION_JSON_VALUE)
+    public User savePassword(@RequestBody String password) {
+        return userService.savePassword(password);
+    }
+    
     @GetMapping(path = "/{username}", produces = MediaType.APPLICATION_JSON_VALUE)
     public User user(@PathVariable String username) {
         return userService.findUserByUsername(username);
