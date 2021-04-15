@@ -58,7 +58,7 @@ public class User implements UserDetails {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "enabled")
+    @Column(name = "enabled", nullable = true)
     private boolean enabled;
     
     @Column(name = "phone_number", nullable = false, unique = true)
@@ -67,15 +67,14 @@ public class User implements UserDetails {
     @Column(name = "social_security", nullable = false, unique = true)
     private int socialSecurity;
 
-    @Column(name = "account_expired")
+    @Column(name = "account_expired", nullable = true)
     private Date accountExpired;
 
-    @Column(name = "account_blocked")
+    @Column(name = "account_blocked", nullable = true)
     private Date accountBlocked;
 
-    @Column(name = "password_expired")
+    @Column(name = "password_expired", nullable = true)
     private Date passwordExpired;
-
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable( name="users_roles", 
@@ -120,5 +119,5 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return enabled;
     }
-    
+        
 }

@@ -8,6 +8,10 @@ package com.kaki.aria.service;
 import com.kaki.aria.model.User;
 import com.kaki.aria.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +20,7 @@ import org.springframework.stereotype.Service;
  * @author alfia
  */
 @Service("userService")
-public class UserService {
+public class UserService implements UserDetailsService{
     
     @Autowired
     private UserRepository userRepository;
@@ -51,5 +55,10 @@ public class UserService {
         user.setPassword(bcCryptPasswordEncoder.encode(password));
         user.setEnabled(true);
         return userRepository.save(user); 
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String string) throws UsernameNotFoundException {
+        return userRepository.findByUsername(string);
     }
 }
