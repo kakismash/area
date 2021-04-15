@@ -24,6 +24,10 @@ public class UserService {
     @Autowired
     private BCryptPasswordEncoder bcCryptPasswordEncoder;
     
+    public User findUserById(long userId) {
+        return userRepository.findById(userId).orElse(null);
+    }
+    
     public User findUserByUsername(String username) {
         return userRepository.findByUsername(username);
     }
@@ -40,8 +44,11 @@ public class UserService {
         userRepository.deleteById(id);
     }
     
-    public User savePassword(User user) {
-        user.setPassword(bcCryptPasswordEncoder.encode(user.getPassword()));
+    public User savePassword(long userId, String password) {
+        
+        User user = findUserById(userId);
+        
+        user.setPassword(bcCryptPasswordEncoder.encode(password));
         user.setEnabled(true);
         return userRepository.save(user); 
     }

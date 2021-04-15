@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,10 +34,10 @@ public class UserController {
         return userService.saveUser(user);
     }
     
-    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
+    @PutMapping(path = "/{id}/savePassword" ,consumes = MediaType.APPLICATION_JSON_VALUE,
                 produces = MediaType.APPLICATION_JSON_VALUE)
-    public User savePassword(@RequestBody String password) {
-        return userService.savePassword(password);
+    public User savePassword(@RequestBody String password, @PathVariable long id) {
+        return userService.savePassword(id, password);
     }
     
     @GetMapping(path = "/{username}", produces = MediaType.APPLICATION_JSON_VALUE)
