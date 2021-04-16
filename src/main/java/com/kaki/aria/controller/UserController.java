@@ -5,7 +5,6 @@
  */
 package com.kaki.aria.controller;
 
-import com.kaki.aria.config.JWTUtil;
 import com.kaki.aria.model.User;
 import com.kaki.aria.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
