@@ -42,11 +42,12 @@ public class UserController {
     public User save(@RequestBody User user) {
         user.setPassword(bcCryptPasswordEncoder.encode(user.getPassword()));
         user.setToken(jwtUtil.generateToken(user));
+        user.setEnabled(true);
         return userService.saveUser(user);
     }
     
     @PutMapping(path = "/{id}/savePassword" ,consumes = MediaType.APPLICATION_JSON_VALUE,
-                produces = MediaType.APPLICATION_JSON_VALUE)
+                                             produces = MediaType.APPLICATION_JSON_VALUE)
     public User savePassword(@RequestBody String password, @PathVariable long id) {
         return userService.savePassword(id, password);
     }

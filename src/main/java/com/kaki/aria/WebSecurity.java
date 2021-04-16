@@ -7,7 +7,6 @@ package com.kaki.aria;
 
 import com.kaki.aria.config.JWTAuthenticationFilter;
 import com.kaki.aria.config.JWTAuthorizationFilter;
-import com.kaki.aria.config.SecurityConstants;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -41,7 +40,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         
         http.cors().and().csrf().disable().authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/user").permitAll()
-                .antMatchers(HttpMethod.GET, "/user").permitAll()
+                .antMatchers(HttpMethod.POST, "/auth/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))
