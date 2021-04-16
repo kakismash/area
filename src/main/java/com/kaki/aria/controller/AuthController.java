@@ -5,7 +5,7 @@
  */
 package com.kaki.aria.controller;
 
-import com.kaki.aria.config.JWTUtil;
+import com.kaki.aria.config.JWTU;
 import com.kaki.aria.config.LoginRequest;
 import com.kaki.aria.config.LoginResponse;
 import com.kaki.aria.service.UserService;
@@ -35,7 +35,7 @@ public class AuthController {
     private UserService userService;
     
     @Autowired
-    private JWTUtil jwtUtil;
+    private JWTU jwtUtil;
     
     @PostMapping("/login")
     public LoginResponse login(@RequestBody LoginRequest request) {

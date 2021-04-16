@@ -5,7 +5,7 @@
  */
 package com.kaki.aria.controller;
 
-import com.kaki.aria.config.JWTUtil;
+import com.kaki.aria.config.JWTU;
 import com.kaki.aria.model.User;
 import com.kaki.aria.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +34,7 @@ public class UserController {
     private BCryptPasswordEncoder bcCryptPasswordEncoder;
     
     @Autowired
-    private JWTUtil jwtUtil;
+    private JWTU jwtUtil;
     
     
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
