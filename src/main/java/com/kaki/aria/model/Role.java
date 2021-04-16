@@ -24,21 +24,24 @@ import lombok.NoArgsConstructor;
  * @author alfia
  */
 @Entity
-@Table(name="role")
+@Table(name = "role")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Role {
  
- @Id
- @GeneratedValue(strategy=GenerationType.AUTO)
- @Column(name = "role_id")
- private long id;
- 
- @Column(name = "name", nullable = false, unique = true)
- private String name;
- 
- @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
- private Set<User> users = new HashSet<User>();
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "role_id")
+    private long id;
+
+    @Column(name = "name", nullable = false, unique = true)
+    private String name;
+
+    @Column(name = "level", nullable = false)
+    private long level;
+
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
+    private Set<User> users = new HashSet<User>();
     
 }

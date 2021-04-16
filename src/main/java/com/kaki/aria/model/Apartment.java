@@ -41,7 +41,7 @@ public class Apartment {
     private String description;
     
     @ManyToOne
-    @JoinColumn( name = "building_id")
+    @JoinColumn(name = "building_id")
     private Building building;
     
 }

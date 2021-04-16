@@ -5,6 +5,7 @@
  */
 package com.kaki.aria.model;
 
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +13,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -44,6 +46,9 @@ public class Building {
     
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "building")
     @Cascade(CascadeType.ALL)
-    private Set<Apartment> apartments;
+    private Set<Apartment> apartments  = new HashSet<Apartment>();
+    
+    @ManyToMany(mappedBy = "buildings", fetch = FetchType.LAZY)
+    private Set<User> users = new HashSet<User>();
     
 }

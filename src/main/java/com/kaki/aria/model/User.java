@@ -7,12 +7,10 @@ package com.kaki.aria.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -25,12 +23,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  *
@@ -58,6 +52,7 @@ public class User implements Serializable {
     @Column(name = "lastname", nullable = false)
     private String lastname;
 
+    @JsonProperty( value = "password", access = JsonProperty.Access.WRITE_ONLY)
     @Column(name = "password", nullable = false)
     private String password;
 
@@ -67,8 +62,8 @@ public class User implements Serializable {
     @Column(name = "phone_number", nullable = false, unique = true)
     private String phoneNumber;
 
-    @Column(name = "social_security", nullable = false, unique = true)
-    private int socialSecurity;
+    @Column(name = "social_security", nullable = true, unique = true, length = 9)
+    private String socialSecurity;
 
     @Column(name = "account_expired", nullable = true)
     private Date accountExpired;
@@ -83,17 +78,25 @@ public class User implements Serializable {
     private String token;
     
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable( name="users_roles", 
-                joinColumns=@JoinColumn(name = "user_id", 
-                                        referencedColumnName = "user_id"), 
-            inverseJoinColumns=@JoinColumn(name = "role_id", 
-                                           referencedColumnName = "role_id"))
+    @JoinTable(name = "users_roles", 
+                joinColumns = @JoinColumn(name = "user_id", 
+                              referencedColumnName = "user_id"), 
+                inverseJoinColumns = @JoinColumn(name = "role_id", 
+                                     referencedColumnName = "role_id"))
     private Set<Role> roles = new HashSet<Role>();
+    
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "users_buildings", 
+                joinColumns = @JoinColumn(name = "user_id", 
+                              referencedColumnName = "user_id"), 
+                inverseJoinColumns = @JoinColumn(name = "building_id", 
+                                     referencedColumnName = "building_id"))
+    private Set<Building> buildings = new HashSet<Building>();
  
     public User(String username, String firstName, String lastname) {
-        this.username     = username;
-        this.firstname    = firstName;
-        this.lastname     = lastname;
+        this.username   = username;
+        this.firstname  = firstName;
+        this.lastname   = lastname;
     }
         
 }
