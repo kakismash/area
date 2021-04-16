@@ -5,9 +5,11 @@
  */
 package com.kaki.aria.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -35,11 +37,12 @@ import org.springframework.security.core.userdetails.UserDetails;
  * @author alfia
  */
 @Entity
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Table(name = "user")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class User implements UserDetails {
+public class User implements Serializable {
  
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -78,7 +81,7 @@ public class User implements UserDetails {
     
     @Column(name = "token", nullable = true)
     private String token;
-
+    
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable( name="users_roles", 
                 joinColumns=@JoinColumn(name = "user_id", 
@@ -91,36 +94,6 @@ public class User implements UserDetails {
         this.username     = username;
         this.firstname    = firstName;
         this.lastname     = lastname;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities(){
-        
-        List<GrantedAuthority> authorities = new ArrayList<>();
-
-        roles.forEach(r -> authorities.add(new SimpleGrantedAuthority(r.getName())));
-
-        return authorities;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return accountExpired.after(new Date());
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return accountBlocked.after(new Date());
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return passwordExpired.after(new Date());
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return enabled;
     }
         
 }

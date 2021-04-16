@@ -5,10 +5,9 @@
  */
 package com.kaki.aria.config;
 
+import com.kaki.aria.model.User;
 import java.io.Serializable;
 import lombok.Data;
-import org.springframework.security.core.userdetails.UserDetails;
-
 /**
  *
  * @author Jose
@@ -18,9 +17,9 @@ public class LoginResponse implements Serializable {
 
     private static final long serialVersionUID = -2265001769007609269L;
     private final String token;
-    private final UserDetails user;
+    private final User user;
 
-    public LoginResponse(String token, UserDetails user) {
+    public LoginResponse(String token, User user) {
         this.token = token;
         this.user  = user;
     }

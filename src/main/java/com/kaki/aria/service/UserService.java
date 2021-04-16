@@ -8,7 +8,7 @@ package com.kaki.aria.service;
 import com.kaki.aria.model.User;
 import com.kaki.aria.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -27,6 +27,8 @@ public class UserService implements UserDetailsService{
     
     @Autowired
     private BCryptPasswordEncoder bcCryptPasswordEncoder;
+    
+    
     
     public User findUserById(long userId) {
         return userRepository.findById(userId).orElse(null);
@@ -59,6 +61,7 @@ public class UserService implements UserDetailsService{
 
     @Override
     public UserDetails loadUserByUsername(String string) throws UsernameNotFoundException {
-        return userRepository.findByUsername(string);
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
 }
