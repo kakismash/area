@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.kaki.aria.config;
+package com.kaki.aria.constant;
 
 /**
  *

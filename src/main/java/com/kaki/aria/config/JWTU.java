@@ -5,6 +5,7 @@
  */
 package com.kaki.aria.config;
 
+import com.kaki.aria.constant.SecurityConstants;
 import com.kaki.aria.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
