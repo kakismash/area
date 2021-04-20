@@ -43,14 +43,9 @@ public class AuthController {
         
         final User user = userService.findUserByUsername(request.getUsername());
         
-        user.setToken(jwtUtil.generateToken(user));
+        user.setToken("Bearer ".concat(jwtUtil.generateToken(user)));
         
         return user;
-    }
-    
-    private void authenticate(String username, String password){
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, 
-                                                                                   password));
     }
     
 }

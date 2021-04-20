@@ -81,7 +81,7 @@ public class User implements Serializable {
     @Column(nullable = true)
     private Integer defaultBuilding;
     
-    @JsonView(User.class)
+    
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "users_roles", 
                 joinColumns = @JoinColumn(name = "user_id", 
@@ -90,7 +90,6 @@ public class User implements Serializable {
                                      referencedColumnName = "role_id"))
     private Collection<Role> roles;
     
-    @JsonView(User.class)
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "users_buildings", 
                 joinColumns = @JoinColumn(name = "user_id", 

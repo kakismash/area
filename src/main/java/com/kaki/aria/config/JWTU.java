@@ -55,9 +55,12 @@ public class JWTU {
 
     private String createToken(Map<String, Object> claims, String subject) {
 
-        return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
-                .signWith(SignatureAlgorithm.HS256, SecurityConstants.SECRET).compact();
+        return Jwts.builder()
+                   .setClaims(claims)
+                   .setSubject(subject)
+                   .setIssuedAt(new Date(System.currentTimeMillis()))
+                   .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
+                   .signWith(SignatureAlgorithm.HS512, SecurityConstants.SECRET).compact();
     }
 
     public Boolean validateToken(String token, User user) {

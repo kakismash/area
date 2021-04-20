@@ -46,8 +46,6 @@ public class Role{
     @Column(name = "level", nullable = false)
     private long level;
 
-    @JsonView(Role.class)
-    @JsonIgnore
     @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
     private Collection<User> users;
 

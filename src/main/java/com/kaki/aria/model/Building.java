@@ -52,7 +52,6 @@ public class Building {
     @Cascade(CascadeType.ALL)
     private Collection<Apartment> apartments;
     
-    @JsonIgnore
     @ManyToMany(mappedBy = "buildings", fetch = FetchType.LAZY)
     private Collection<User> users;
     
