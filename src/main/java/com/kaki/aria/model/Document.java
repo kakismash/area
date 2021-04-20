@@ -6,6 +6,7 @@
 
 package com.kaki.aria.model;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,6 +27,7 @@ import java.time.LocalDate; //---Import the LocalDate class
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonView(Document.class)
 public class Document {
 
     @Id

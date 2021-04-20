@@ -5,6 +5,9 @@
  */
 package com.kaki.aria.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -31,6 +34,7 @@ import org.hibernate.annotations.CascadeType;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonView(Building.class)
 public class Building {
     
     @Id
@@ -46,9 +50,10 @@ public class Building {
     
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "building")
     @Cascade(CascadeType.ALL)
-    private Set<Apartment> apartments  = new HashSet<Apartment>();
+    private Collection<Apartment> apartments;
     
+    @JsonIgnore
     @ManyToMany(mappedBy = "buildings", fetch = FetchType.LAZY)
-    private Set<User> users = new HashSet<User>();
+    private Collection<User> users;
     
 }

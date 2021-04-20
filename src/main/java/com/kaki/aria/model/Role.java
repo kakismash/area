@@ -5,8 +5,9 @@
  */
 package com.kaki.aria.model;
 
-import java.util.HashSet;
-import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -28,20 +29,27 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Role {
+@JsonView(Role.class)
+public class Role{
  
+    @JsonView(User.class)
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "role_id")
     private long id;
 
+    @JsonView(User.class)
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
+    @JsonView(User.class)
     @Column(name = "level", nullable = false)
     private long level;
 
+    @JsonView(Role.class)
+    @JsonIgnore
     @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
-    private Set<User> users = new HashSet<User>();
+    private Collection<User> users;
+
     
 }

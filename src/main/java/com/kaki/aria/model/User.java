@@ -8,10 +8,10 @@ package com.kaki.aria.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonView;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -36,6 +36,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "user")
 @Data
 @NoArgsConstructor
+@JsonView(User.class)
 public class User implements Serializable {
  
     @Id
@@ -77,26 +78,31 @@ public class User implements Serializable {
     @Column(name = "token", nullable = true)
     private String token;
     
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @Column(nullable = true)
+    private Integer defaultBuilding;
+    
+    @JsonView(User.class)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "users_roles", 
                 joinColumns = @JoinColumn(name = "user_id", 
                               referencedColumnName = "user_id"), 
                 inverseJoinColumns = @JoinColumn(name = "role_id", 
                                      referencedColumnName = "role_id"))
-    private Set<Role> roles = new HashSet<Role>();
+    private Collection<Role> roles;
     
+    @JsonView(User.class)
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "users_buildings", 
                 joinColumns = @JoinColumn(name = "user_id", 
                               referencedColumnName = "user_id"), 
                 inverseJoinColumns = @JoinColumn(name = "building_id", 
                                      referencedColumnName = "building_id"))
-    private Set<Building> buildings = new HashSet<Building>();
+    private Collection<Building> buildings;
  
     public User(String username, String firstName, String lastname) {
         this.username   = username;
         this.firstname  = firstName;
         this.lastname   = lastname;
     }
-        
+    
 }

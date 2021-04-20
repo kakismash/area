@@ -5,6 +5,7 @@
  */
 package com.kaki.aria.model;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,6 +28,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonView(Apartment.class)
 public class Apartment {
     
     @Id

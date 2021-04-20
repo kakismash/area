@@ -5,9 +5,11 @@
  */
 package com.kaki.aria.service;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.kaki.aria.model.Role;
 import com.kaki.aria.repository.RoleRepository;
 import java.util.List;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,11 +19,13 @@ import org.springframework.stereotype.Service;
  */
 
 @Service("roleService")
+@Transactional
 public class RoleService {
     
     @Autowired
     RoleRepository roleRepo;
     
+    @Transactional
     public Role findById(long roleId) {
         return roleRepo.findById(roleId).orElseGet(null);
     }

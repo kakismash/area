@@ -5,9 +5,9 @@
  */
 package com.kaki.aria.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.kaki.aria.config.JWTU;
 import com.kaki.aria.config.LoginRequest;
-import com.kaki.aria.config.LoginResponse;
 import com.kaki.aria.service.UserService;
 import com.kaki.aria.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,9 +38,14 @@ public class AuthController {
     private JWTU jwtUtil;
     
     @PostMapping("/login")
-    public LoginResponse login(@RequestBody LoginRequest request) {
+    @JsonView(User.class)
+    public User login(@RequestBody LoginRequest request) {
+        
         final User user = userService.findUserByUsername(request.getUsername());
-        return new LoginResponse(jwtUtil.generateToken(user), user);
+        
+        user.setToken(jwtUtil.generateToken(user));
+        
+        return user;
     }
     
     private void authenticate(String username, String password){
