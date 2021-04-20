@@ -54,11 +54,6 @@ public class UserService implements UserDetailsService{
     }
     
     public boolean passwordValidation(String password, User user) {
-        
-        String encripted = bcCryptPasswordEncoder.encode(password);
-
-        
-        
         return bcCryptPasswordEncoder.matches(password, user.getPassword());
     }
 
