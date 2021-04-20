@@ -52,6 +52,15 @@ public class UserService implements UserDetailsService{
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
+    
+    public boolean passwordValidation(String password, User user) {
+        
+        String encripted = bcCryptPasswordEncoder.encode(password);
+
+        
+        
+        return bcCryptPasswordEncoder.matches(password, user.getPassword());
+    }
 
     public User savePassword(long userId, String password) {
         
