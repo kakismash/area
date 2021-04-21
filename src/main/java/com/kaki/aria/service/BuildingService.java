@@ -7,7 +7,6 @@ package com.kaki.aria.service;
 
 import com.kaki.aria.model.Building;
 import com.kaki.aria.repository.BuildingRepository;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,8 +32,13 @@ public class BuildingService {
         buildingRepo.deleteById(buildingId);
     }
     
-    public List<Building> findAll() {
-        return buildingRepo.findAll();
+    public Iterable<Building> findAll() {
+        
+        Iterable<Building> b = buildingRepo.findAll();
+        
+        System.out.println(b.toString());
+        
+        return b;
     }
     
 }

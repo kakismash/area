@@ -7,7 +7,7 @@ package com.kaki.aria.repository;
 
 import com.kaki.aria.model.Apartment;
 import java.util.List;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -15,9 +15,9 @@ import org.springframework.stereotype.Repository;
  * @author alfia
  */
 @Repository("apartmentRepository")
-public interface ApartmentRepository extends JpaRepository<Apartment, Long>{
+public interface ApartmentRepository extends CrudRepository<Apartment, Long>{
     
-    List<Apartment> findAllByBuildingId(long buildingId);
+    Iterable<Apartment> findAllByBuildingId(long buildingId);
 
     Apartment findById(long apartmentId);
     

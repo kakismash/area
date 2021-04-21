@@ -5,7 +5,9 @@
  */
 package com.kaki.aria.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonView;
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,22 +16,16 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
  *
  * @author alfia
  */
-
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Table(name = "apartment")
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 @JsonView(Apartment.class)
-public class Apartment {
+public class Apartment implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -39,11 +35,54 @@ public class Apartment {
     @Column(name = "display", nullable = false)
     private String display;
 
+    
     @Column(name = "description")
     private String description;
     
     @ManyToOne
     @JoinColumn(name = "building_id")
     private Building building;
+
+    public Apartment() {
+    }
+
+    public Apartment(long id, String display, String description, Building building) {
+        this.id = id;
+        this.display = display;
+        this.description = description;
+        this.building = building;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getDisplay() {
+        return display;
+    }
+
+    public void setDisplay(String display) {
+        this.display = display;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Building getBuilding() {
+        return building;
+    }
+
+    public void setBuilding(Building building) {
+        this.building = building;
+    }
     
 }

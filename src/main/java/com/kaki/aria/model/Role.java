@@ -5,8 +5,9 @@
  */
 package com.kaki.aria.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonView;
+import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,21 +17,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
  *
  * @author alfia
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Table(name = "role")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 @JsonView(Role.class)
-public class Role{
+public class Role implements Serializable{
  
     @JsonView(User.class)
     @Id
@@ -46,8 +42,51 @@ public class Role{
     @Column(name = "level", nullable = false)
     private long level;
 
-    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
     private Collection<User> users;
 
+    public Role() {
+    }
+
+    public Role(long id, String name, long level, Collection<User> users) {
+        this.id = id;
+        this.name = name;
+        this.level = level;
+        this.users = users;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public long getLevel() {
+        return level;
+    }
+
+    public void setLevel(long level) {
+        this.level = level;
+    }
+
+    public Collection<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Collection<User> users) {
+        this.users = users;
+    }
+
+    
     
 }

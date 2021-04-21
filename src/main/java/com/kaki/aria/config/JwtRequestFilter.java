@@ -27,7 +27,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
  * @author Jose
  */
 @Component
-@Transactional
 @JsonView(User.class)
 public class JwtRequestFilter extends OncePerRequestFilter {
 
@@ -38,7 +37,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     private JWTU jwtTokenUtil;
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
                     throws ServletException, IOException {
 

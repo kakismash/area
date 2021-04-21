@@ -7,7 +7,6 @@ package com.kaki.aria.service;
 
 import com.kaki.aria.model.Apartment;
 import com.kaki.aria.repository.ApartmentRepository;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,11 +20,11 @@ public class ApartmentService {
     @Autowired
     ApartmentRepository apartmentRepo;
     
-    public List<Apartment> findByBuilding(long buildingId) {
+    public Iterable<Apartment> findByBuilding(long buildingId) {
         return apartmentRepo.findAllByBuildingId(buildingId);
     }
    
-    public List<Apartment> findAll() {
+    public Iterable<Apartment> findAll() {
         return apartmentRepo.findAll();
     }
     

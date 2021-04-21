@@ -6,7 +6,7 @@
 package com.kaki.aria.repository;
 
 import com.kaki.aria.model.Building;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
  * @author alfia
  */
 @Repository("buildingRepository")
-public interface BuildingRepository extends JpaRepository<Building, Long>{
+public interface BuildingRepository extends CrudRepository<Building, Long>{
     
     Building findById(long id);
     

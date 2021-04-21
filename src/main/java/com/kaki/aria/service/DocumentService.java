@@ -8,7 +8,6 @@ package com.kaki.aria.service;
 
 import com.kaki.aria.model.Document;
 import com.kaki.aria.repository.DocumentRepository;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +25,7 @@ public class DocumentService {
         return documentRepo.findById(documentId).orElseGet(null);
     }
     
-    public List<Document> findAll() {
+    public Iterable<Document> findAll() {
         return documentRepo.findAll();
     }
     

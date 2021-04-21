@@ -5,18 +5,20 @@
  */
 package com.kaki.aria.service;
 
+import com.kaki.aria.model.Building;
 import com.kaki.aria.model.Role;
 import com.kaki.aria.model.User;
+import com.kaki.aria.repository.BuildingRepository;
 import com.kaki.aria.repository.RoleRepository;
 import com.kaki.aria.repository.UserRepository;
 import java.util.Collection;
-import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -24,6 +26,9 @@ import org.springframework.stereotype.Service;
  */
 @Service("userService")
 public class UserService implements UserDetailsService{
+    
+    @Autowired
+    private BuildingRepository buildingRepository;
     
     @Autowired
     private UserRepository userRepository;
@@ -34,9 +39,12 @@ public class UserService implements UserDetailsService{
     @Autowired
     private RoleRepository roleRepository;
     
+    @Transactional(readOnly = true)
     public User findUserById(long userId) {
         return userRepository.findById(userId).orElse(null);
     }
+    
+    @Transactional(readOnly = true)
     public User findUserByUsername(String username) {
         return userRepository.findByUsername(username);
     }
@@ -45,6 +53,7 @@ public class UserService implements UserDetailsService{
         return userRepository.save(user);      
     }
     
+    @Transactional(readOnly = true)
     public Iterable<User> findAll() {
         return userRepository.findAll();
     }
@@ -66,13 +75,14 @@ public class UserService implements UserDetailsService{
         return userRepository.save(user); 
     }
 
+    @Transactional(readOnly = true)
     @Override
     public UserDetails loadUserByUsername(String string) throws UsernameNotFoundException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     public User addRole(long userId, long roleId) {
-        
+         
         User user = findUserById(userId);
         
         Collection<Role> roles = user.getRoles();
@@ -96,6 +106,36 @@ public class UserService implements UserDetailsService{
         roles.removeIf(r -> r.getId() == roleId);
         
         user.setRoles(roles);
+        
+        return userRepository.save(user);
+        
+    }
+    
+    public User addBuilding(long userId, long buildingId) {
+         
+        User user = findUserById(userId);
+        
+        Collection<Building> buildings = user.getBuildings();
+        
+        Building buildingToAdd = buildingRepository.findById(buildingId);
+
+        buildings.add(buildingToAdd);
+        
+        user.setBuildings(buildings);
+        
+        return userRepository.save(user);
+        
+    }
+    
+    public User removeBuilding(long userId, long buildingId) {
+        
+        User user = findUserById(userId);
+        
+        Collection<Building> buildings = user.getBuildings();
+        
+        buildings.removeIf(r -> r.getId() == buildingId);
+        
+        user.setBuildings(buildings);
         
         return userRepository.save(user);
         

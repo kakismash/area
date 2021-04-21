@@ -5,6 +5,7 @@
  */
 package com.kaki.aria.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.kaki.aria.model.Building;
 import com.kaki.aria.service.BuildingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,7 @@ public class BuildingController {
         return buildingService.saveBuilding(building);
     }
     
+    @JsonView(Building.class)
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public Iterable<Building> list(){
         return buildingService.findAll();

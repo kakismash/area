@@ -36,12 +36,12 @@ public class ApartmentController {
     }
     
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Apartment> list(){
+    public Iterable<Apartment> list(){
         return apartmentService.findAll();
     }
     
     @GetMapping(path = "/building/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Apartment> apartmentsByBuildingId(@PathVariable long buildingId){
+    public Iterable<Apartment> apartmentsByBuildingId(@PathVariable long buildingId){
         return apartmentService.findByBuilding(buildingId);
     }
     
