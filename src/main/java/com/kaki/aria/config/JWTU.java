@@ -7,6 +7,7 @@ package com.kaki.aria.config;
 
 import com.kaki.aria.constant.SecurityConstants;
 import com.kaki.aria.model.User;
+import com.kaki.aria.service.UserService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -15,6 +16,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -27,7 +29,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class JWTU {
 
-
+    @Autowired
+    UserService userService;
+    
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
@@ -52,6 +56,10 @@ public class JWTU {
         Map<String, Object> claims = new HashMap<>();
         return createToken(claims, user.getUsername());
     }
+    
+    public void expireToken(User user) {
+        userService.removeToken(user);
+    }
 
     private String createToken(Map<String, Object> claims, String subject) {
 
@@ -65,7 +73,7 @@ public class JWTU {
 
     public Boolean validateToken(String token, User user) {
         final String username = extractUsername(token);
-        return (username.equals(user.getUsername()) && !isTokenExpired(token));
+        return (username.equals(user.getUsername()) && !isTokenExpired(token) && user.getToken().equals(token));
     }
 
 }

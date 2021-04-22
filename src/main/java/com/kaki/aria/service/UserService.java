@@ -140,5 +140,16 @@ public class UserService implements UserDetailsService{
         return userRepository.save(user);
         
     }
+    
+    public User findUserByToken(String token) {
+        return userRepository.findByToken(token);
+    }
+    
+    public void removeToken(User user) {
+        
+        user.setToken(null);
+        
+        userRepository.save(user);
+    }
 
 }

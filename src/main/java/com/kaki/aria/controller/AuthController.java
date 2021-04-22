@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 /**
  *
@@ -47,12 +49,26 @@ public class AuthController {
         if (userService.passwordValidation(request.getPassword(), user)) {
         
             user.setToken(jwtUtil.generateToken(user));
-        
+            userService.saveUser(user);
+            
         } else {
             throw  new BadCredentialsException("1000");
         }
         
         return user;
+    }
+    
+    @GetMapping("/logout")
+    @JsonView(User.class)
+    public void logout(@RequestHeader("Authorization") String token) {
+        
+        if (token != null) {
+            User user = userService.findUserByToken(token.substring(7));
+        
+            if (user != null) {
+                jwtUtil.expireToken(user);
+            }
+        }
     }
     
     private void authenticate(String username, String password){
