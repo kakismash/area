@@ -47,10 +47,10 @@ public class Apartment implements Serializable{
     }
 
     public Apartment(long id, String display, String description, Building building) {
-        this.id = id;
-        this.display = display;
-        this.description = description;
-        this.building = building;
+        this.id             = id;
+        this.display        = display;
+        this.description    = description;
+        this.building       = building;
     }
 
     public long getId() {

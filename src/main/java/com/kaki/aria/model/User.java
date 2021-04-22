@@ -96,21 +96,21 @@ public class User implements Serializable {
     }
 
     public User(long id, String username, String firstname, String lastname, String password, boolean enabled, String phoneNumber, String socialSecurity, Date accountExpired, Date accountBlocked, Date passwordExpired, String token, Integer defaultBuilding, Collection<Role> roles, Collection<Building> buildings) {
-        this.id = id;
-        this.username = username;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.password = password;
-        this.enabled = enabled;
-        this.phoneNumber = phoneNumber;
-        this.socialSecurity = socialSecurity;
-        this.accountExpired = accountExpired;
-        this.accountBlocked = accountBlocked;
-        this.passwordExpired = passwordExpired;
-        this.token = token;
-        this.defaultBuilding = defaultBuilding;
-        this.roles = roles;
-        this.buildings = buildings;
+        this.id                 = id;
+        this.username           = username;
+        this.firstname          = firstname;
+        this.lastname           = lastname;
+        this.password           = password;
+        this.enabled            = enabled;
+        this.phoneNumber        = phoneNumber;
+        this.socialSecurity     = socialSecurity;
+        this.accountExpired     = accountExpired;
+        this.accountBlocked     = accountBlocked;
+        this.passwordExpired    = passwordExpired;
+        this.token              = token;
+        this.defaultBuilding    = defaultBuilding;
+        this.roles              = roles;
+        this.buildings          = buildings;
     }
 
     public long getId() {

@@ -50,6 +50,7 @@ public class UserService implements UserDetailsService{
     }
     
     public User saveUser(User user) {
+        user.setEnabled(true);
         return userRepository.save(user);      
     }
     
@@ -71,7 +72,6 @@ public class UserService implements UserDetailsService{
         User user = findUserById(userId);
         
         user.setPassword(bcCryptPasswordEncoder.encode(password));
-        user.setEnabled(true);
         return userRepository.save(user); 
     }
 

@@ -56,14 +56,14 @@ public class Document implements Serializable {
     }
 
     public Document(long id, String path, String name, String fileType, long size, String description, LocalDate created, LocalDate updated) {
-        this.id = id;
-        this.path = path;
-        this.name = name;
-        this.fileType = fileType;
-        this.size = size;
-        this.description = description;
-        this.created = created;
-        this.updated = updated;
+        this.id             = id;
+        this.path           = path;
+        this.name           = name;
+        this.fileType       = fileType;
+        this.size           = size;
+        this.description    = description;
+        this.created        = created;
+        this.updated        = updated;
     }
 
     public long getId() {

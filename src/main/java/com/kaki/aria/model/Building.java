@@ -50,11 +50,11 @@ public class Building implements Serializable{
     }
 
     public Building(long id, String name, String description, Collection<Apartment> apartments, Collection<User> users) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.apartments = apartments;
-        this.users = users;
+        this.id                 = id;
+        this.name               = name;
+        this.description        = description;
+        this.apartments         = apartments;
+        this.users              = users;
     }
 
     public long getId() {

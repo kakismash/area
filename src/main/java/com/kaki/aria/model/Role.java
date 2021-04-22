@@ -49,10 +49,10 @@ public class Role implements Serializable{
     }
 
     public Role(long id, String name, long level, Collection<User> users) {
-        this.id = id;
-        this.name = name;
-        this.level = level;
-        this.users = users;
+        this.id         = id;
+        this.name       = name;
+        this.level      = level;
+        this.users      = users;
     }
 
     public long getId() {

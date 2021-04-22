@@ -59,7 +59,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userService).passwordEncoder(bCryptPasswordEncoder);
     }
     
-    @Bean( name="myAuthenticationManager")
+    @Bean(name = "myAuthenticationManager")
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
          return super.authenticationManagerBean();
