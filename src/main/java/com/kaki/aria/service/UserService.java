@@ -10,6 +10,7 @@ import com.google.gson.JsonObject;
 import com.kaki.aria.model.Building;
 import com.kaki.aria.model.Role;
 import com.kaki.aria.model.User;
+import com.kaki.aria.model.view.changePassword;
 import com.kaki.aria.repository.BuildingRepository;
 import com.kaki.aria.repository.RoleRepository;
 import com.kaki.aria.repository.UserRepository;
@@ -71,16 +72,13 @@ public class UserService implements UserDetailsService{
         return bcCryptPasswordEncoder.matches(password, user.getPassword());
     }
     
-    public void changePassword(String token, JsonNode passwords) {
+    public void changePassword(String token, changePassword passwords) {
         
-        String oldPassword = passwords.get("oldPassword").asText();
-        String newPassword = passwords.get("newPassword").asText();
+        User user = findUserByToken(token.substring(7));
         
-        User user = findUserByToken(token);
-        
-        if (passwordValidation(oldPassword, user)) {
+        if (passwordValidation(passwords.getOldPassword(), user)) {
             
-            user.setPassword(bcCryptPasswordEncoder.encode(newPassword));
+            user.setPassword(bcCryptPasswordEncoder.encode(passwords.getNewPassword()));
             userRepository.save(user);
             
         } else {

@@ -6,15 +6,15 @@
 package com.kaki.aria.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.google.gson.JsonObject;
 import com.kaki.aria.config.JWTU;
 import com.kaki.aria.model.User;
 import com.kaki.aria.model.view.Views;
+import com.kaki.aria.model.view.changePassword;
 import com.kaki.aria.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -52,14 +52,14 @@ public class UserController {
         user.setEnabled(true);
         return userService.saveUser(user);
     }
-    
+
+    @CrossOrigin
     @JsonView(Views.Password.class)
     @PutMapping(path = "/changePassword" , consumes = MediaType.APPLICATION_JSON_VALUE,
-                                                produces = MediaType.APPLICATION_JSON_VALUE)
+                                           produces = MediaType.APPLICATION_JSON_VALUE)
     public void changePassword(@RequestHeader("Authorization") String token, 
-                               @RequestBody JsonNode password) {
-        
-        userService.changePassword(token, password);
+                               @RequestBody changePassword passwords) {
+        userService.changePassword(token, passwords);
     }
     
     @PutMapping(path = "/{id}/savePassword" ,consumes = MediaType.APPLICATION_JSON_VALUE,

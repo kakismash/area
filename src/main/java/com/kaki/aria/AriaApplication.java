@@ -30,24 +30,28 @@ public class AriaApplication {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
                         .allowedOrigins("*")
-                        .allowedMethods("*")
+                        .allowCredentials(false)
                         .allowedHeaders("*")
-                        .allowCredentials(false);
+                        .allowedMethods("*");
                 
                 System.out.println("**************adding cors*************");
             }
         };
     }
     
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-
-        CorsConfiguration corsConfiguration = new CorsConfiguration().applyPermitDefaultValues();
-        source.registerCorsConfiguration("/**", corsConfiguration);
-
-        return source;
-    }
+//    @Bean
+//    CorsConfigurationSource corsConfigurationSource() {
+//        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//
+//        CorsConfiguration corsConfiguration = new CorsConfiguration().applyPermitDefaultValues();
+//        
+//        
+//        source.registerCorsConfiguration("/**", corsConfiguration);
+//
+//        System.out.println("Cors Configuration Source");
+//        
+//        return source;
+//    }
     
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
