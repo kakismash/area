@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.kaki.aria.model;
+package com.kaki.aria.model.view;
 
 /**
  *
@@ -13,5 +13,6 @@ public class Views {
     public static class Public {}
 
     public static class Internal extends Public {}
-    
+ 
+    public static class Password extends Public {}
 }

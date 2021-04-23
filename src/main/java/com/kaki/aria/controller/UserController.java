@@ -6,8 +6,11 @@
 package com.kaki.aria.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.google.gson.JsonObject;
 import com.kaki.aria.config.JWTU;
 import com.kaki.aria.model.User;
+import com.kaki.aria.model.view.Views;
 import com.kaki.aria.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -47,6 +50,14 @@ public class UserController {
         user.setToken(jwtUtil.generateToken(user));
         user.setEnabled(true);
         return userService.saveUser(user);
+    }
+    
+    @JsonView(Views.Password.class)
+    @PutMapping(path = "/{id}/changePassword" , consumes = MediaType.APPLICATION_JSON_VALUE,
+                                                produces = MediaType.APPLICATION_JSON_VALUE)
+    public void changePassword(@RequestBody JsonNode password, @PathVariable long id) {
+        
+        userService.changePassword(id, password);
     }
     
     @PutMapping(path = "/{id}/savePassword" ,consumes = MediaType.APPLICATION_JSON_VALUE,

@@ -6,8 +6,8 @@
 package com.kaki.aria.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.kaki.aria.model.view.Views.Password;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -46,7 +46,7 @@ public class User implements Serializable {
     @Column(name = "lastname", nullable = false)
     private String lastname;
 
-    @JsonProperty( value = "password", access = JsonProperty.Access.WRITE_ONLY)
+    @JsonView(Password.class)
     @Column(name = "password", nullable = false)
     private String password;
 

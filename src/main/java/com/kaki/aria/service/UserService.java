@@ -5,6 +5,8 @@
  */
 package com.kaki.aria.service;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.google.gson.JsonObject;
 import com.kaki.aria.model.Building;
 import com.kaki.aria.model.Role;
 import com.kaki.aria.model.User;
@@ -13,12 +15,14 @@ import com.kaki.aria.repository.RoleRepository;
 import com.kaki.aria.repository.UserRepository;
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 /**
  *
@@ -65,6 +69,25 @@ public class UserService implements UserDetailsService{
     
     public boolean passwordValidation(String password, User user) {
         return bcCryptPasswordEncoder.matches(password, user.getPassword());
+    }
+    
+    public void changePassword(long userId, JsonNode passwords) {
+        
+        String oldPassword = passwords.get("oldPassword").asText();
+        String newPassword = passwords.get("newPassword").asText();
+        
+        User user = findUserById(userId);
+        
+        if (passwordValidation(oldPassword, user)) {
+            
+            user.setPassword(bcCryptPasswordEncoder.encode(newPassword));
+            userRepository.save(user);
+            
+        } else {
+            throw new ResponseStatusException(
+                        HttpStatus.PRECONDITION_FAILED, "Password not match");
+        }
+        
     }
 
     public User savePassword(long userId, String password) {
