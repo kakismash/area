@@ -71,12 +71,12 @@ public class UserService implements UserDetailsService{
         return bcCryptPasswordEncoder.matches(password, user.getPassword());
     }
     
-    public void changePassword(long userId, JsonNode passwords) {
+    public void changePassword(String token, JsonNode passwords) {
         
         String oldPassword = passwords.get("oldPassword").asText();
         String newPassword = passwords.get("newPassword").asText();
         
-        User user = findUserById(userId);
+        User user = findUserByToken(token);
         
         if (passwordValidation(oldPassword, user)) {
             

@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 /**
@@ -53,11 +54,12 @@ public class UserController {
     }
     
     @JsonView(Views.Password.class)
-    @PutMapping(path = "/{id}/changePassword" , consumes = MediaType.APPLICATION_JSON_VALUE,
+    @PutMapping(path = "/changePassword" , consumes = MediaType.APPLICATION_JSON_VALUE,
                                                 produces = MediaType.APPLICATION_JSON_VALUE)
-    public void changePassword(@RequestBody JsonNode password, @PathVariable long id) {
+    public void changePassword(@RequestHeader("Authorization") String token, 
+                               @RequestBody JsonNode password) {
         
-        userService.changePassword(id, password);
+        userService.changePassword(token, password);
     }
     
     @PutMapping(path = "/{id}/savePassword" ,consumes = MediaType.APPLICATION_JSON_VALUE,
