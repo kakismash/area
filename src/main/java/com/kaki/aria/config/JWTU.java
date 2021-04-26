@@ -54,21 +54,28 @@ public class JWTU {
 
     public String generateToken(User user) {
         Map<String, Object> claims = new HashMap<>();
-        return createToken(claims, user.getUsername());
+        
+        return createToken(claims, user);
     }
     
     public void expireToken(User user) {
         userService.removeToken(user);
     }
 
-    private String createToken(Map<String, Object> claims, String subject) {
+    private String createToken(Map<String, Object> claims, User user) {
 
-        return Jwts.builder()
-                   .setClaims(claims)
-                   .setSubject(subject)
-                   .setIssuedAt(new Date(System.currentTimeMillis()))
-                   .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
-                   .signWith(SignatureAlgorithm.HS512, SecurityConstants.SECRET).compact();
+        String token = Jwts.builder()
+                            .setClaims(claims)
+                            .setSubject(user.getUsername())
+                            .setIssuedAt(new Date(System.currentTimeMillis()))
+                            .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
+                            .signWith(SignatureAlgorithm.HS512, SecurityConstants.SECRET).compact();
+        
+        user.setToken(token);
+        
+        userService.saveToken(user.getId(), token);
+        
+        return token;
     }
 
     public Boolean validateToken(String token, User user) {

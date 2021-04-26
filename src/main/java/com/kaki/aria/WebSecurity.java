@@ -49,10 +49,12 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         System.out.println("******************************loading configure***************************");
         
         http.headers().addHeaderWriter(new StaticHeadersWriter("Access-Control-Allow-Origin", "*"))
-                .and().cors().and().csrf().disable().authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                .antMatchers(HttpMethod.GET, "/auth/logout").permitAll()
-                .anyRequest().authenticated()
+                .and().cors().and().csrf().disable()
+                .authorizeRequests()
+                    .antMatchers(HttpMethod.POST, "/**/login").permitAll()
+                    .antMatchers(HttpMethod.PUT, "/user").permitAll()
+                    .antMatchers(HttpMethod.GET, "/**/logout").permitAll()
+                    .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
                 // this disables session creation on Spring Security

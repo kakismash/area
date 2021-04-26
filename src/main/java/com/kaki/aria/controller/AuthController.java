@@ -49,7 +49,6 @@ public class AuthController {
         if (userService.passwordValidation(request.getPassword(), user)) {
         
             user.setToken(jwtUtil.generateToken(user));
-            userService.saveUser(user);
             
         } else {
             throw  new BadCredentialsException("1000");

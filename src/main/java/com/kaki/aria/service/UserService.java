@@ -7,6 +7,7 @@ package com.kaki.aria.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.google.gson.JsonObject;
+import com.kaki.aria.config.JWTU;
 import com.kaki.aria.model.Building;
 import com.kaki.aria.model.Role;
 import com.kaki.aria.model.User;
@@ -44,6 +45,9 @@ public class UserService implements UserDetailsService{
     @Autowired
     private RoleRepository roleRepository;
     
+    @Autowired
+    private JWTU jwtUtil;
+    
     @Transactional(readOnly = true)
     public User findUserById(long userId) {
         return userRepository.findById(userId).orElse(null);
@@ -55,7 +59,14 @@ public class UserService implements UserDetailsService{
     }
     
     public User saveUser(User user) {
+        
+        if (!user.getPassword().isEmpty()) {
+            user.setPassword(bcCryptPasswordEncoder.encode(user.getPassword()));
+        }
+        
+//        user.setToken(jwtUtil.generateToken(user));
         user.setEnabled(true);
+        
         return userRepository.save(user);      
     }
     
@@ -171,6 +182,10 @@ public class UserService implements UserDetailsService{
         user.setToken(null);
         
         userRepository.save(user);
+    }
+    
+    public void saveToken(long userId, String token) {
+        userRepository.updateToken(userId, token);
     }
 
 }
