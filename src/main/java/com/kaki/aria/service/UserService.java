@@ -60,13 +60,20 @@ public class UserService implements UserDetailsService{
     
     public User saveUser(User user) {
         
-        if (!user.getPassword().isEmpty()) {
+        if (user.getPassword() != null && !user.getPassword().isEmpty()) {
+        
             user.setPassword(bcCryptPasswordEncoder.encode(user.getPassword()));
+        
+        } else if (user.getId() != null) {
+        
+            User t = userRepository.findById(user.getId()).get();
+            user.setPassword(t.getPassword());
+        
+        } else {
+        
+            user.setPassword(bcCryptPasswordEncoder.encode("123"));
+            user.setEnabled(false);
         }
-        
-//        user.setToken(jwtUtil.generateToken(user));
-        user.setEnabled(true);
-        
         return userRepository.save(user);      
     }
     

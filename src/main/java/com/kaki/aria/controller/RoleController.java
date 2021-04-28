@@ -5,6 +5,7 @@
  */
 package com.kaki.aria.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.kaki.aria.model.Role;
 import com.kaki.aria.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,22 +29,26 @@ public class RoleController {
     @Autowired
     private RoleService roleService;
     
+    @JsonView(Role.class)
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
                  produces = MediaType.APPLICATION_JSON_VALUE)
     public Role save(@RequestBody Role role){
         return roleService.saveRole(role);
     }
     
+    @JsonView(Role.class)
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public Iterable<Role> list(){
         return roleService.findAll();
     }
     
+    @JsonView(Role.class)
     @DeleteMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public void deleteById(@PathVariable Long id){
         roleService.deleteRole(id);
     }
     
+    @JsonView(Role.class)
     @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Role findById(@PathVariable Long id){
         return roleService.findById(id);

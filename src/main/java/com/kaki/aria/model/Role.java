@@ -28,21 +28,21 @@ import javax.persistence.Table;
 @JsonView(Role.class)
 public class Role implements Serializable{
  
-    @JsonView(User.class)
+    @JsonView({User.class, Role.class})
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "role_id")
     private long id;
 
-    @JsonView(User.class)
+    @JsonView({User.class, Role.class})
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @JsonView(User.class)
+    @JsonView({User.class, Role.class})
     @Column(name = "level", nullable = false)
     private long level;
 
-    @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
     private Collection<User> users;
 
     public Role() {
@@ -86,7 +86,5 @@ public class Role implements Serializable{
     public void setUsers(Collection<User> users) {
         this.users = users;
     }
-
-    
     
 }

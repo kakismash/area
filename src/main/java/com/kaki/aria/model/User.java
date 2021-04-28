@@ -35,7 +35,7 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id")
-    private long id;
+    private Long id;
 
     @Column(name = "username", nullable = false, unique = true)
     private String username;
@@ -75,7 +75,7 @@ public class User implements Serializable {
     private Integer defaultBuilding;
     
     
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "users_roles", 
                 joinColumns = @JoinColumn(name = "user_id", 
                               referencedColumnName = "user_id"), 
@@ -113,7 +113,7 @@ public class User implements Serializable {
         this.buildings          = buildings;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
