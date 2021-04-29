@@ -5,6 +5,7 @@
  */
 package com.kaki.aria.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.kaki.aria.model.Apartment;
 import com.kaki.aria.service.ApartmentService;
 import java.util.List;
@@ -29,6 +30,7 @@ public class ApartmentController {
     @Autowired
     private ApartmentService apartmentService;
     
+    @JsonView(Apartment.class)
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
                  produces = MediaType.APPLICATION_JSON_VALUE)
     public Apartment save(@RequestBody Apartment apartment){

@@ -75,7 +75,7 @@ public class UserController {
         userService.deleteUser(id);
     }
     
-    @JsonView(User.class)
+    /*@JsonView(User.class)
     @PatchMapping(path = "/{id}/role/{roleId}", 
                   produces = MediaType.APPLICATION_JSON_VALUE)
     public User addRole(@PathVariable long id, @PathVariable long roleId) {
@@ -87,7 +87,7 @@ public class UserController {
                    produces = MediaType.APPLICATION_JSON_VALUE)
     public User deleteRole(@PathVariable long id, @PathVariable long roleId) {
         return userService.removeRole(id, roleId);
-    }
+    }*/
     
     @JsonView(User.class)
     @PatchMapping(path = "/{id}/building/{buildingId}", 

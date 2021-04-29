@@ -120,15 +120,15 @@ public class UserService implements UserDetailsService{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    public User addRole(long userId, long roleId) {
+    /*public User addRole(long userId, long roleId) {
          
         User user = findUserById(userId);
         
-        Collection<Role> roles = user.getRoles();
+        Role role = user.getRole();
         
         Role roleToAdd = roleRepository.findById(roleId).orElse(null);
 
-        roles.add(roleToAdd);
+        role.add(roleToAdd);
         
         user.setRoles(roles);
         
@@ -148,7 +148,7 @@ public class UserService implements UserDetailsService{
         
         return userRepository.save(user);
         
-    }
+    }*/
     
     public User addBuilding(long userId, long buildingId) {
          

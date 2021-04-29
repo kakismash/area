@@ -21,6 +21,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 /**
  *
@@ -74,14 +76,9 @@ public class User implements Serializable {
     @Column(nullable = true)
     private Integer defaultBuilding;
     
-    
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "users_roles", 
-                joinColumns = @JoinColumn(name = "user_id", 
-                              referencedColumnName = "user_id"), 
-                inverseJoinColumns = @JoinColumn(name = "role_id", 
-                                     referencedColumnName = "role_id"))
-    private Collection<Role> roles;
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
     
     @JsonView(Building.class)
     @ManyToMany(fetch = FetchType.LAZY)
@@ -95,7 +92,7 @@ public class User implements Serializable {
     public User() {
     }
 
-    public User(long id, String username, String firstname, String lastname, String password, boolean enabled, String phoneNumber, String socialSecurity, Date accountExpired, Date accountBlocked, Date passwordExpired, String token, Integer defaultBuilding, Collection<Role> roles, Collection<Building> buildings) {
+    public User(long id, String username, String firstname, String lastname, String password, boolean enabled, String phoneNumber, String socialSecurity, Date accountExpired, Date accountBlocked, Date passwordExpired, String token, Integer defaultBuilding, Role role, Collection<Building> buildings) {
         this.id                 = id;
         this.username           = username;
         this.firstname          = firstname;
@@ -109,7 +106,7 @@ public class User implements Serializable {
         this.passwordExpired    = passwordExpired;
         this.token              = token;
         this.defaultBuilding    = defaultBuilding;
-        this.roles              = roles;
+        this.role               = role;
         this.buildings          = buildings;
     }
 
@@ -216,13 +213,13 @@ public class User implements Serializable {
     public void setDefaultBuilding(Integer defaultBuilding) {
         this.defaultBuilding = defaultBuilding;
     }
-
-    public Collection<Role> getRoles() {
-        return roles;
+    
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoles(Collection<Role> roles) {
-        this.roles = roles;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public Collection<Building> getBuildings() {
