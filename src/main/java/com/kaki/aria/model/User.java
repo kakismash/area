@@ -11,7 +11,6 @@ import com.kaki.aria.model.view.Views.Password;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -22,8 +21,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import com.kaki.aria.model.view.Views;
 /**
  *
  * @author alfia
@@ -80,7 +79,6 @@ public class User implements Serializable {
     @JoinColumn(name = "role_id")
     private Role role;
     
-    @JsonView(Building.class)
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "users_buildings", 
                 joinColumns = @JoinColumn(name = "user_id", 

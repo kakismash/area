@@ -7,6 +7,7 @@ package com.kaki.aria.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.kaki.aria.model.view.Views;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Column;
@@ -25,9 +26,9 @@ import javax.persistence.Table;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Table(name = "building")
-@JsonView(Building.class)
+@JsonView({Building.class, User.class})
 public class Building implements Serializable{
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "building_id")
@@ -39,10 +40,11 @@ public class Building implements Serializable{
     @Column(name = "description")
     private String description;
     
+    @JsonView(Apartment.class)
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "building")
     private Collection<Apartment> apartments;
     
-    @JsonView(User.class)
+    @JsonView(Views.UserList.class)
     @ManyToMany(mappedBy = "buildings", fetch = FetchType.LAZY)
     private Collection<User> users;
 

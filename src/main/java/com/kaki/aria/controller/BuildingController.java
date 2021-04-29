@@ -46,6 +46,7 @@ public class BuildingController {
         buildingService.deleteBuilding(id);
     }
     
+    @JsonView(Building.class)
     @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Building findById(@PathVariable Long id){
         return buildingService.findById(id);

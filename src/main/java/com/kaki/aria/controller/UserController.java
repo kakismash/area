@@ -6,10 +6,12 @@
 package com.kaki.aria.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.kaki.aria.model.Building;
 import com.kaki.aria.model.User;
 import com.kaki.aria.model.view.Views;
 import com.kaki.aria.model.view.changePassword;
 import com.kaki.aria.service.UserService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -57,11 +59,18 @@ public class UserController {
         return userService.savePassword(user.getId(), user.getPassword());
     }
     
-    @GetMapping(path = "/{username}", 
+    @JsonView(User.class)
+    @GetMapping(path = "/{id}", 
                 produces = MediaType.APPLICATION_JSON_VALUE)
-    public User user(@PathVariable String username) {
-        return userService.findUserByUsername(username);
+    public User user(@PathVariable long id) {
+        return userService.findUserById(id);
     }
+    
+//    @GetMapping(path = "/{username}", 
+//                produces = MediaType.APPLICATION_JSON_VALUE)
+//    public User user(@PathVariable String username) {
+//        return userService.findUserByUsername(username);
+//    }
     
     @JsonView(User.class)
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -75,19 +84,12 @@ public class UserController {
         userService.deleteUser(id);
     }
     
-    /*@JsonView(User.class)
-    @PatchMapping(path = "/{id}/role/{roleId}", 
+    @JsonView(Building.class)
+    @GetMapping(path = "/{id}/building", 
                   produces = MediaType.APPLICATION_JSON_VALUE)
-    public User addRole(@PathVariable long id, @PathVariable long roleId) {
-        return userService.addRole(id, roleId);
+    public List<Building> buildingsByUser(@PathVariable long id) {
+        return userService.buildingsByUser(id);
     }
-    
-    @JsonView(User.class)
-    @DeleteMapping(path = "/{id}/role/{roleId}", 
-                   produces = MediaType.APPLICATION_JSON_VALUE)
-    public User deleteRole(@PathVariable long id, @PathVariable long roleId) {
-        return userService.removeRole(id, roleId);
-    }*/
     
     @JsonView(User.class)
     @PatchMapping(path = "/{id}/building/{buildingId}", 
@@ -102,6 +104,5 @@ public class UserController {
     public User deleteBuilding(@PathVariable long id, @PathVariable long buildingId) {
         return userService.removeBuilding(id, buildingId);
     }
-    
        
 }

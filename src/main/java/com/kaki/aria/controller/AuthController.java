@@ -10,6 +10,7 @@ import com.kaki.aria.config.JWTU;
 import com.kaki.aria.config.LoginRequest;
 import com.kaki.aria.service.UserService;
 import com.kaki.aria.model.User;
+import com.kaki.aria.model.view.Views;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

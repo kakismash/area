@@ -5,17 +5,16 @@
  */
 package com.kaki.aria.service;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.google.gson.JsonObject;
 import com.kaki.aria.config.JWTU;
 import com.kaki.aria.model.Building;
-import com.kaki.aria.model.Role;
 import com.kaki.aria.model.User;
 import com.kaki.aria.model.view.changePassword;
 import com.kaki.aria.repository.BuildingRepository;
 import com.kaki.aria.repository.RoleRepository;
 import com.kaki.aria.repository.UserRepository;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -193,6 +192,19 @@ public class UserService implements UserDetailsService{
     
     public void saveToken(long userId, String token) {
         userRepository.updateToken(userId, token);
+    }
+    
+    public List<Building> buildingsByUser(long id) {
+    
+        List<Building> b = new ArrayList();
+        
+        Iterable<Building> buildings = buildingRepository.findByUserId(id);
+        
+        buildings.forEach(building -> {
+                            b.add(building);
+        });
+        
+        return b;
     }
 
 }

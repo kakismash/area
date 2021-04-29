@@ -15,4 +15,8 @@ public class Views {
     public static class Internal extends Public {}
  
     public static class Password extends Public {}
+    
+    public static class UserList extends Public {}
+    
+    public static class Login extends Public {}
 }
