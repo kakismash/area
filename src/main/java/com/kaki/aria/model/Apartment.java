@@ -7,6 +7,7 @@ package com.kaki.aria.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.kaki.aria.model.view.Views;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -39,6 +40,7 @@ public class Apartment implements Serializable{
     @Column(name = "description")
     private String description;
     
+    @JsonView(Views.BuildingList.class)
     @ManyToOne
     @JoinColumn(name = "building_id")
     private Building building;

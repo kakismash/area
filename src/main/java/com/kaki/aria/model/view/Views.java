@@ -18,5 +18,7 @@ public class Views {
     
     public static class UserList extends Public {}
     
+    public static class BuildingList extends Public {}
+    
     public static class Login extends Public {}
 }
