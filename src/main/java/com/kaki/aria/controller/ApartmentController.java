@@ -37,11 +37,13 @@ public class ApartmentController {
         return apartmentService.saveApartment(apartment);
     }
     
+    @JsonView(Apartment.class)
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public Iterable<Apartment> list(){
         return apartmentService.findAll();
     }
     
+    @JsonView(Apartment.class)
     @GetMapping(path = "/building/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Iterable<Apartment> apartmentsByBuildingId(@PathVariable long buildingId){
         return apartmentService.findByBuilding(buildingId);
@@ -52,6 +54,7 @@ public class ApartmentController {
         apartmentService.deleteApartment(id);
     }
     
+    @JsonView(Apartment.class)
     @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Apartment findById(@PathVariable long id){
         return apartmentService.findById(id);
