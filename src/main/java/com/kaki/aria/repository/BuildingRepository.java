@@ -22,5 +22,4 @@ public interface BuildingRepository extends CrudRepository<Building, Long>{
     
     @Query("SELECT b FROM Building b LEFT JOIN b.users u WHERE u.id =:id")
     Iterable<Building> findByUserId(@Param("id") long id);
-    
 }

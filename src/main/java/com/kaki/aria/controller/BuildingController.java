@@ -6,7 +6,9 @@
 package com.kaki.aria.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.kaki.aria.model.Apartment;
 import com.kaki.aria.model.Building;
+import com.kaki.aria.service.ApartmentService;
 import com.kaki.aria.service.BuildingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -29,6 +31,9 @@ public class BuildingController {
     @Autowired
     private BuildingService buildingService;
     
+    @Autowired
+    private ApartmentService apartmentService;
+    
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
                  produces = MediaType.APPLICATION_JSON_VALUE)
     public Building save(@RequestBody Building building){
@@ -50,6 +55,12 @@ public class BuildingController {
     @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Building findById(@PathVariable Long id){
         return buildingService.findById(id);
+    }
+    
+    @JsonView(Apartment.class)
+    @GetMapping(path = "/{id}/apartment", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<Apartment> listApartmentsByBuildingId(@PathVariable Long id){
+        return apartmentService.listApartmentByBuildingId(id);
     }
     
 }
