@@ -44,6 +44,10 @@ public class Building implements Serializable{
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "building")
     private Collection<Apartment> apartments;
     
+    @JsonView(Floor.class)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "building")
+    private Collection<Floor> floors;
+    
     @JsonView(Views.UserList.class)
     @ManyToMany(mappedBy = "buildings", fetch = FetchType.LAZY)
     private Collection<User> users;
@@ -51,12 +55,13 @@ public class Building implements Serializable{
     public Building() {
     }
 
-    public Building(long id, String name, String description, Collection<Apartment> apartments, Collection<User> users) {
+    public Building(long id, String name, String description, Collection<Apartment> apartments, Collection<User> users, Collection<Floor> floors) {
         this.id                 = id;
         this.name               = name;
         this.description        = description;
         this.apartments         = apartments;
         this.users              = users;
+        this.floors             = floors;
     }
 
     public long getId() {
@@ -99,7 +104,11 @@ public class Building implements Serializable{
         this.users = users;
     }
 
+    public Collection<Floor> getFloors(){
+        return floors;
+    }
     
-    
-    
+    public void setFloors(Collection<Floor> floors){
+        this.floors = floors;
+    }
 }

@@ -20,5 +20,7 @@ public class Views {
     
     public static class BuildingList extends Public {}
     
+    public static class ApartmentList extends Public {}
+    
     public static class Login extends Public {}
 }
