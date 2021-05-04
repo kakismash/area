@@ -28,17 +28,15 @@ import javax.persistence.Table;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
-@Table(name = "role")
+@Table(name = "floor")
 @JsonView(Floor.class)
 public class Floor implements Serializable{
     
-    @JsonView(Floor.class)
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "floor_id")
     private long id;
 
-    @JsonView(Floor.class)
     @Column(name = "name", nullable = false)
     private String name;
     
@@ -51,9 +49,9 @@ public class Floor implements Serializable{
     @JoinColumn(name = "building_id")
     private Building building;
     
-    public Floor(){
-        
-    }
+    private int type;
+    
+    public Floor(){}
     
     public Floor(long id, String name, Collection<Apartment> apartments, Building building){
         this.id         = id;
@@ -93,4 +91,16 @@ public class Floor implements Serializable{
     public void setBuilding(Building building){
         this.building = building;
     }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+    
+    public static int RESIDENCIAL = 2;
+    public static int COMMON      = 1;
+    public static int MIX         = 3;  
 }
