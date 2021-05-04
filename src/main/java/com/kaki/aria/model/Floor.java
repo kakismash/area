@@ -40,6 +40,9 @@ public class Floor implements Serializable{
     @Column(name = "name", nullable = false)
     private String name;
     
+    @Column(name = "type", nullable = false)
+    private int type;
+    
     @JsonView(Views.ApartmentList.class)
     @ManyToMany(mappedBy = "floors", fetch = FetchType.LAZY)
     private Collection<Apartment> apartments;
@@ -49,7 +52,6 @@ public class Floor implements Serializable{
     @JoinColumn(name = "building_id")
     private Building building;
     
-    private int type;
     
     public Floor(){}
     
