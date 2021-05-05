@@ -32,15 +32,18 @@ import javax.persistence.Table;
 @JsonView(Floor.class)
 public class Floor implements Serializable{
     
+    @JsonView({Floor.class, Building.class})
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "floor_id")
     private long id;
 
-    @Column(name = "name", nullable = false)
+    @JsonView({Floor.class, Building.class})
+    @Column(name = "name", nullable = true)
     private String name;
     
-    @Column(name = "type", nullable = false)
+    @JsonView({Floor.class, Building.class})
+    @Column(name = "type", nullable = true)
     private int type;
     
     @JsonView(Views.ApartmentList.class)

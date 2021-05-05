@@ -12,6 +12,7 @@ import com.kaki.aria.model.Floor;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -22,6 +23,9 @@ public class FloorService {
     
     @Autowired
     FloorRepository floorRepo;
+    
+    @Autowired
+    BuildingService buildingService;
     
     public Floor findById(long floorId) {
         return floorRepo.findById(floorId).orElseGet(null);
@@ -39,12 +43,13 @@ public class FloorService {
         return floorRepo.save(floor);
     }
     
-    public List<Floor> createFloorsFromQuantity(int quantity) {
+    public List<Floor> createFloorsFromQuantity(int quantity, long buildingId) {
         
         List<Floor> floors = new ArrayList();
         
         for (int a = 0; a < quantity; a++ ) {
             Floor f = new Floor();
+            f.setBuilding(buildingService.findById(buildingId));
             floors.add(f);
         }
         
@@ -54,10 +59,9 @@ public class FloorService {
         
     }
     
+    @Transactional
     public void removeFloors(Collection<Floor> floors) {
-        
         floorRepo.deleteAll(floors);
-                
     }
     
     public void removeFloor(long floorId) {

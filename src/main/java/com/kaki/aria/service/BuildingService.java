@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -48,12 +49,18 @@ public class BuildingService {
         return b;
     }
     
+    @Transactional
     public Building saveFloors(long buildingId, 
                                int  floors) {
         
         Building building = buildingRepo.findById(buildingId);
         
-        building.setFloors(floorService.createFloorsFromQuantity(floors));
+        if (building.getFloors() != null && 
+                building.getFloors().size() > 0) {
+            floorService.removeFloors(building.getFloors());
+        }
+        
+        building.setFloors(floorService.createFloorsFromQuantity(floors, buildingId));
         
         buildingRepo.save(building);
         
@@ -61,6 +68,7 @@ public class BuildingService {
         
     }
     
+    @Transactional
     public Building removeFloors(long buildingId) {
         
         Building building = buildingRepo.findById(buildingId);
@@ -75,6 +83,7 @@ public class BuildingService {
         
     }
     
+    @Transactional
     public Building removeFloor(long buildingId, long floorId) {
         
         Building building = buildingRepo.findById(buildingId);

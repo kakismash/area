@@ -8,10 +8,8 @@ package com.kaki.aria.controller;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.kaki.aria.model.Apartment;
 import com.kaki.aria.model.Building;
-import com.kaki.aria.model.Floor;
 import com.kaki.aria.service.ApartmentService;
 import com.kaki.aria.service.BuildingService;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -66,19 +64,21 @@ public class BuildingController {
         return apartmentService.listApartmentByBuildingId(id);
     }
     
-    @PatchMapping(path = "/{id}/floor", 
-                 consumes = MediaType.APPLICATION_JSON_VALUE, 
+    @JsonView(Building.class)
+    @PatchMapping(path = "/{id}/floor/{floors}",  
                  produces = MediaType.APPLICATION_JSON_VALUE)
-    public Building addFloors(@RequestBody int floors, @PathVariable Long id) {
+    public Building addFloors(@PathVariable Long id, @PathVariable int floors) {
         return buildingService.saveFloors(id, floors);
     }
     
+    @JsonView(Building.class)
     @DeleteMapping(path = "/{id}/floor", 
                    produces = MediaType.APPLICATION_JSON_VALUE)
     public Building removeFloors(@PathVariable Long id) {
         return buildingService.removeFloors(id);
     }
     
+    @JsonView(Building.class)
     @DeleteMapping(path = "/{id}/floor/{floorId}", 
                    produces = MediaType.APPLICATION_JSON_VALUE)
     public Building removeFloor(@PathVariable Long id, @PathVariable Long floorId) {
