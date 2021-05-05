@@ -9,6 +9,9 @@ import com.kaki.aria.repository.FloorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.kaki.aria.model.Floor;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  *
@@ -36,5 +39,29 @@ public class FloorService {
         return floorRepo.save(floor);
     }
     
+    public List<Floor> createFloorsFromQuantity(int quantity) {
+        
+        List<Floor> floors = new ArrayList();
+        
+        for (int a = 0; a < quantity; a++ ) {
+            Floor f = new Floor();
+            floors.add(f);
+        }
+        
+        floorRepo.saveAll(floors);
+        
+        return floors;
+        
+    }
+    
+    public void removeFloors(Collection<Floor> floors) {
+        
+        floorRepo.deleteAll(floors);
+                
+    }
+    
+    public void removeFloor(long floorId) {
+        floorRepo.deleteById(floorId);
+    }
     
 }

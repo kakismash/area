@@ -8,12 +8,15 @@ package com.kaki.aria.controller;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.kaki.aria.model.Apartment;
 import com.kaki.aria.model.Building;
+import com.kaki.aria.model.Floor;
 import com.kaki.aria.service.ApartmentService;
 import com.kaki.aria.service.BuildingService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -61,6 +64,25 @@ public class BuildingController {
     @GetMapping(path = "/{id}/apartment", produces = MediaType.APPLICATION_JSON_VALUE)
     public Iterable<Apartment> listApartmentsByBuildingId(@PathVariable Long id){
         return apartmentService.listApartmentByBuildingId(id);
+    }
+    
+    @PatchMapping(path = "/{id}/floor", 
+                 consumes = MediaType.APPLICATION_JSON_VALUE, 
+                 produces = MediaType.APPLICATION_JSON_VALUE)
+    public Building addFloors(@RequestBody int floors, @PathVariable Long id) {
+        return buildingService.saveFloors(id, floors);
+    }
+    
+    @DeleteMapping(path = "/{id}/floor", 
+                   produces = MediaType.APPLICATION_JSON_VALUE)
+    public Building removeFloors(@PathVariable Long id) {
+        return buildingService.removeFloors(id);
+    }
+    
+    @DeleteMapping(path = "/{id}/floor/{floorId}", 
+                   produces = MediaType.APPLICATION_JSON_VALUE)
+    public Building removeFloor(@PathVariable Long id, @PathVariable Long floorId) {
+        return buildingService.removeFloor(id, floorId);
     }
     
 }

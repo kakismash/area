@@ -6,7 +6,11 @@
 package com.kaki.aria.service;
 
 import com.kaki.aria.model.Building;
+import com.kaki.aria.model.Floor;
 import com.kaki.aria.repository.BuildingRepository;
+import com.kaki.aria.repository.FloorRepository;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +23,9 @@ public class BuildingService {
     
     @Autowired
     BuildingRepository buildingRepo;
+    
+    @Autowired
+    FloorService floorService;
     
     public Building findById(long buildingId) {
         return buildingRepo.findById(buildingId);
@@ -39,6 +46,49 @@ public class BuildingService {
         System.out.println(b.toString());
         
         return b;
+    }
+    
+    public Building saveFloors(long buildingId, 
+                               int  floors) {
+        
+        Building building = buildingRepo.findById(buildingId);
+        
+        building.setFloors(floorService.createFloorsFromQuantity(floors));
+        
+        buildingRepo.save(building);
+        
+        return building;
+        
+    }
+    
+    public Building removeFloors(long buildingId) {
+        
+        Building building = buildingRepo.findById(buildingId);
+        
+        floorService.removeFloors(building.getFloors());
+        
+        building.setFloors(new ArrayList<Floor>());
+        
+        buildingRepo.save(building);
+        
+        return building;
+        
+    }
+    
+    public Building removeFloor(long buildingId, long floorId) {
+        
+        Building building = buildingRepo.findById(buildingId);
+        
+        floorService.removeFloor(floorId);
+        
+        building.getFloors().removeIf(f -> f.getId() == floorId);
+        
+        building.setFloors(building.getFloors());
+        
+        buildingRepo.save(building);
+        
+        return building;
+        
     }
     
 }
