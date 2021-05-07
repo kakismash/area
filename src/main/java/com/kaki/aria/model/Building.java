@@ -44,6 +44,7 @@ public class Building implements Serializable{
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "building")
     private Collection<Apartment> apartments;
     
+    @JsonView(Floor.class)
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "building")
     private Collection<Floor> floors;
     
