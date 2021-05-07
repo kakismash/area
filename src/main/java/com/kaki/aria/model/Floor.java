@@ -46,6 +46,10 @@ public class Floor implements Serializable{
     @Column(name = "type", nullable = true)
     private int type;
     
+    @JsonView({Floor.class, Building.class})
+    @Column(name = "description")
+    private String description;
+    
     @JsonView(Views.ApartmentList.class)
     @ManyToMany(mappedBy = "floors", fetch = FetchType.LAZY)
     private Collection<Apartment> apartments;
@@ -58,11 +62,13 @@ public class Floor implements Serializable{
     
     public Floor(){}
     
-    public Floor(long id, String name, Collection<Apartment> apartments, Building building){
-        this.id         = id;
-        this.name       = name;
-        this.apartments = apartments;
-        this.building   = building;
+    public Floor(long id, String name, int type, String description, Collection<Apartment> apartments, Building building){
+        this.id          = id;
+        this.name        = name;
+        this.type        = type;
+        this.description = description;
+        this.apartments  = apartments;
+        this.building    = building;
     }
     
     public long getId(){
@@ -103,6 +109,14 @@ public class Floor implements Serializable{
 
     public void setType(int type) {
         this.type = type;
+    }
+    
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
     
     public static int RESIDENCIAL = 2;

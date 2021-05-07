@@ -28,7 +28,7 @@ public class FloorService {
     BuildingService buildingService;
     
     public Floor findById(long floorId) {
-        return floorRepo.findById(floorId).orElseGet(null);
+        return floorRepo.findById(floorId);
     }
     
     public Iterable<Floor> findAll() {
@@ -66,6 +66,10 @@ public class FloorService {
     
     public void removeFloor(long floorId) {
         floorRepo.deleteById(floorId);
+    }
+    
+    public Iterable<Floor> listFloorByBuildingId(long buildingId) {
+        return floorRepo.findAllByBuildingId(buildingId);
     }
     
 }
