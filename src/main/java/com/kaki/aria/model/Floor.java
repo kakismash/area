@@ -39,11 +39,11 @@ public class Floor implements Serializable{
     private long id;
 
     @JsonView({Floor.class, Building.class})
-    @Column(name = "name", nullable = true)
+    @Column(name = "name")
     private String name;
     
     @JsonView({Floor.class, Building.class})
-    @Column(name = "type", nullable = true)
+    @Column(name = "type")
     private int type;
     
     @JsonView({Floor.class, Building.class})
