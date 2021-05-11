@@ -8,7 +8,6 @@ package com.kaki.aria.controller;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.kaki.aria.model.Apartment;
 import com.kaki.aria.service.ApartmentService;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;

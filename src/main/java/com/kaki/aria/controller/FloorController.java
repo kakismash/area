@@ -42,7 +42,6 @@ public class FloorController {
         return floorService.findAll();
     }
     
-    @JsonView(Floor.class)
     @DeleteMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public void deleteById(@PathVariable Long id){
         floorService.deleteFloor(id);
