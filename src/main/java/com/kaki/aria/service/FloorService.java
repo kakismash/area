@@ -48,20 +48,12 @@ public class FloorService {
         return floorRepo.save(floor);
     }
     
-    public List<Floor> createFloorsFromQuantity(int quantity, long buildingId) {
-        
-        List<Floor> floors = new ArrayList();
-        
-        for (int a = 0; a < quantity; a++ ) {
-            Floor f = new Floor();
+    public List<Floor> createFloors(Long buildingId, List<Floor> floors) {
+        floors.forEach(f -> {
             f.setBuilding(buildingService.findById(buildingId));
-            floors.add(f);
-        }
-        
+        });
         floorRepo.saveAll(floors);
-        
         return floors;
-        
     }
     
     

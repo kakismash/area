@@ -36,7 +36,7 @@ public class Floor implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "floor_id")
-    private long id;
+    private Long id;
 
     @JsonView({Floor.class, Building.class})
     @Column(name = "name")
@@ -71,11 +71,11 @@ public class Floor implements Serializable{
         this.building    = building;
     }
     
-    public long getId(){
+    public Long getId(){
         return id;
     }
     
-    public void setId(long id){
+    public void setId(Long id){
         this.id = id;
     }
     

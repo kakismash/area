@@ -59,8 +59,8 @@ public class BuildingService {
             floorService.removeFloors(building.getFloors());
         }
         
+        floors = floorService.createFloors(buildingId, floors);
         building.setFloors(floors);
-        
         buildingRepo.save(building);
         
         return building;
