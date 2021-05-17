@@ -50,8 +50,7 @@ public class BuildingService {
     }
     
     @Transactional
-    public Building saveFloors(long buildingId, 
-                               int  floors) {
+    public Building saveFloors(long buildingId, List<Floor>  floors) {
         
         Building building = buildingRepo.findById(buildingId);
         
@@ -60,7 +59,7 @@ public class BuildingService {
             floorService.removeFloors(building.getFloors());
         }
         
-        building.setFloors(floorService.createFloorsFromQuantity(floors, buildingId));
+        building.setFloors(floors);
         
         buildingRepo.save(building);
         

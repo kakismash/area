@@ -5,10 +5,12 @@
  */
 package com.kaki.aria.service;
 
+import com.kaki.aria.model.Building;
 import com.kaki.aria.repository.FloorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.kaki.aria.model.Floor;
+import com.kaki.aria.repository.BuildingRepository;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -26,6 +28,9 @@ public class FloorService {
     
     @Autowired
     BuildingService buildingService;
+    
+    @Autowired
+    BuildingRepository buildingRepo;
     
     public Floor findById(long floorId) {
         return floorRepo.findById(floorId);
@@ -58,6 +63,7 @@ public class FloorService {
         return floors;
         
     }
+    
     
     @Transactional
     public void removeFloors(Collection<Floor> floors) {

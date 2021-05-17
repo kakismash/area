@@ -12,11 +12,11 @@ import com.kaki.aria.model.Floor;
 import com.kaki.aria.service.ApartmentService;
 import com.kaki.aria.service.BuildingService;
 import com.kaki.aria.service.FloorService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -70,9 +70,9 @@ public class BuildingController {
     }
     
     @JsonView(Building.class)
-    @PatchMapping(path = "/{id}/floor/{floors}",  
+    @PostMapping(path = "/{id}/floor",  
                  produces = MediaType.APPLICATION_JSON_VALUE)
-    public Building addFloors(@PathVariable Long id, @PathVariable int floors) {
+    public Building addFloors(@PathVariable Long id, @RequestBody List<Floor> floors) {
         return buildingService.saveFloors(id, floors);
     }
     
