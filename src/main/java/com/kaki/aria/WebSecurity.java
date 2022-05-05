@@ -33,9 +33,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private JwtRequestFilter jwtRequestFilter;
-    
-    private UserService  userService;
-    
+
+    private UserService userService;
+
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public WebSecurity(UserService userService, BCryptPasswordEncoder bCryptPasswordEncoder) {
@@ -47,14 +47,15 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     @org.springframework.transaction.annotation.Transactional
     protected void configure(HttpSecurity http) throws Exception {
         System.out.println("******************************loading configure***************************");
-        
+
         http.headers().addHeaderWriter(new StaticHeadersWriter("Access-Control-Allow-Origin", "*"))
                 .and().cors().and().csrf().disable()
                 .authorizeRequests()
-                    .antMatchers(HttpMethod.POST, "/**/login").permitAll()
-                    .antMatchers(HttpMethod.PUT, "/user").permitAll()
-                    .antMatchers(HttpMethod.GET, "/**/logout").permitAll()
-                    .anyRequest().authenticated()
+                .antMatchers(HttpMethod.POST, "/**/login").permitAll()
+                .antMatchers(HttpMethod.PUT, "/user").permitAll()
+                .antMatchers(HttpMethod.POST, "/user").permitAll()
+                .antMatchers(HttpMethod.GET, "/**/logout").permitAll()
+                .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
                 // this disables session creation on Spring Security
@@ -65,10 +66,10 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userService).passwordEncoder(bCryptPasswordEncoder);
     }
-    
+
     @Bean(name = "myAuthenticationManager")
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
-         return super.authenticationManagerBean();
+        return super.authenticationManagerBean();
     }
 }
