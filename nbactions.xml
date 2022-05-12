@@ -14,6 +14,7 @@
             <Env.SPRING_OUTPUT_ANSI_ENABLED>always</Env.SPRING_OUTPUT_ANSI_ENABLED>
         </properties>
     </action>
+    
     <action>
         <actionName>debug</actionName>
         <packagings>

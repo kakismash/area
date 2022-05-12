@@ -6,9 +6,9 @@
 package com.kaki.aria.repository;
 
 import com.kaki.aria.model.Apartment;
-import java.util.List;
-import java.util.Set;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -16,10 +16,13 @@ import org.springframework.stereotype.Repository;
  * @author alfia
  */
 @Repository("apartmentRepository")
-public interface ApartmentRepository extends JpaRepository<Apartment, Long>{
+public interface ApartmentRepository extends CrudRepository<Apartment, Long>{
     
-    List<Apartment> findAllByBuildingId(long buildingId);
+    Iterable<Apartment> findAllByBuildingId(long buildingId);
 
     Apartment findById(long apartmentId);
+    
+    @Query("SELECT a FROM Apartment a LEFT JOIN a.building b WHERE b.id =:id")
+    Iterable<Apartment> findByBuildingId(@Param("id") long id);
     
 }

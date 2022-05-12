@@ -5,7 +5,7 @@
  */
 package com.kaki.aria.repository;
 
-import com.kaki.aria.model.Building;
+import com.kaki.aria.model.Floor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -13,13 +13,15 @@ import org.springframework.stereotype.Repository;
 
 /**
  *
- * @author alfia
+ * @author Jose
  */
-@Repository("buildingRepository")
-public interface BuildingRepository extends CrudRepository<Building, Long>{
+@Repository("floorRepository")
+public interface FloorRepository extends CrudRepository<Floor, Long>{
     
-    Building findById(long id);
+    Iterable<Floor> findAllByBuildingId(long buildingId);
+
+    Floor findById(long floorId);
     
-    @Query("SELECT b FROM Building b LEFT JOIN b.users u WHERE u.id =:id")
-    Iterable<Building> findByUserId(@Param("id") long id);
+    @Query("SELECT f FROM Floor f LEFT JOIN f.building f WHERE f.id =:id")
+    Iterable<Floor> findByBuildingId(@Param("id") long id);
 }

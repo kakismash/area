@@ -5,7 +5,7 @@
  */
 package com.kaki.aria.repository;
 
-import com.kaki.aria.model.Role;
+import com.kaki.aria.model.GlobalSetting;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,9 +13,9 @@ import org.springframework.stereotype.Repository;
  *
  * @author alfia
  */
-@Repository("roleRepository")
-public interface RoleRepository extends CrudRepository<Role, Long>{
+@Repository("systemParamRepository")
+public interface SystemParamRepository extends CrudRepository<GlobalSetting, Long>{
     
-    Role findRoleByName(String name);
+    public GlobalSetting findByName(String name);
     
 }

@@ -3,19 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package com.kaki.aria.repository;
 
-import com.kaki.aria.model.Role;
+import com.kaki.aria.model.Document;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 /**
  *
- * @author alfia
+ * @author Jose
  */
-@Repository("roleRepository")
-public interface RoleRepository extends CrudRepository<Role, Long>{
+@Repository("documentRepository")
+public interface DocumentRepository extends CrudRepository<Document, Long>{
     
-    Role findRoleByName(String name);
     
 }
